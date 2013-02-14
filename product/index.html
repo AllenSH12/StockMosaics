@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-</head>
-
-<body>
 	<script type="text/javascript">
 		function sumFields(a, b, c, d) {
 			var total = a + b + c + d;
-			document.write(total);
+			alert(total);
+			document.getElementById("priceTarget").innerHTML=total;
 		}
-		var grossRevenue = 2;
-		var revenueStreams = [2, 2, 2];
-		for (var i = 0; i < revenueStreams.length; i++) {
-			grossRevenue = Math.pow(grossRevenue,revenueStreams[i]);
-			//document.write(Math.pow(grossRevenue,revenueStreams[i]) + " ");
-		}
-		//document.write(grossRevenue);
-
-		var x = 3;
-		var y = 2;
-		var z = Math.pow(x, y);
-		//document.write(z);
-
 	</script>
-		<h3>Growth Rates</h3><br>
-	<div>
-		<form>
-			Revenue: <input type="text" name="revenueRate"><br>
-			Assets: <input type="text" name="assetRate"><br>
-			Liability: <input type="text" name="liabilityRate"><br>
-			R & D: <input type="text" name="rAndDRate"><br>
+</head>
 
-			<input type="submit" value="Submit">
+<body>
+	<h3>Growth Rates</h3><br>
+	<div>
+		<form name="babyForm">
+			Revenue: <input type="number" name="revenueRate" value=""><br>
+			Assets: <input type="number" name="assetRate"><br>
+			Liability: <input type="number" name="liabilityRate"><br>
+			R & D: <input type="number" name="rAndDRate"><br>
+			<button onclick=sumFields(revenueRate.value,assetRate.value,liabilityRate.value,rAndDRate.value)>GO</button>
 		</form>
+		<p id="priceTarget"></p>
 	</div>
-	
 </body>
 
 
