@@ -95,6 +95,50 @@
 			return PriceTarget;
 		}			
 		
+		/*balance sheet
+		*/
+		
+		function currentAssets("CashEq","AcctsRec","StInv","MktSec","Inv","DefTaxAssets","PrepaidExp","AccExp","other"); {
+			var currentAssets = "cashEq" + "AcctsRec" + "StInv" + "MktSec" + "Inv" + "DefTaxAssets" + "PrepaidExp" + "AccExp" + "other";
+			return currrentAssets;
+		}
+		
+		function longTermAssets("TangibleAssets","BldsStructures","MachineryEq","FurnitureEq","Land","AccDep","IntangAssets","Software","Goodwill","OtherNetInt","InvAndOtherAssets","InvSec","OtherRec","OtherAssets","DefTaxAssets","LongTimeDeposit","Others","Allowance"); {
+			var longTermAssets = "TangibleAssets"+"BldsStructures"+"MachineryEq"+"FurnitureEq"+"Land"+"AccDep"+"IntangAssets"+"Software"+"Goodwill"+"OtherNetInt"+"InvAndOtherAssets"+"InvSec"+"OtherRec"+"OtherAssets"+"DefTaxAssets"+"LongTimeDeposit"+"Others"+"Allowance";
+			return longTermAssets;
+		}
+		
+		function TotAssets("currentAssets","longTermAssets"); {
+			var TotAssets = "currentAssets" + "longTermAssets";
+			return TotAssets;
+		}
+		
+		function CurrentLiabilities("StNP","StDebt","StBorrowing","CurrentInstLTDebt","BondsDue","AP","AccExp","ItaxPay","AllowProd","DivPay","OtherCurrLiab"); {
+			var CurrentLiabilities = "StNP"+"StDebt"+"StBorrowing"+"CurrentInstLTDebt"+"BondsDue"+"AP"+"AccExp"+"ItaxPay"+"AllowProd"+"DivPay"+"OtherCurrLiab";
+			return CurrentLiabilities;
+		}
+		
+		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
+			var NonCurrentLiab = "LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab";
+			return NonCurrentLiab;
+		}
+		
+		function TotLiab("CurrentLiabilities","NonCurrentLiab"); {
+			var TotLiab = "CurrentLiabilities" + "NonCurrentLiab";
+			return TotLiab;
+		}
+		
+		function StockhldrsEq("RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","AssetLiabDiffPlug","CumTranslAdj","UnrealizedGainLossMktSec"); {
+			{
+			function AssetLiabDiffPlug("TotAssets","TotLiab","RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","CumTranslAdj","UnrealizedGainLossMktSec"); {
+				var AssetLiabDiffPlug = "TotAssets" - "TotLiab" - "RedeemablePrefStock" - "AddPic" - "RetainedEarnings" - "Tstock" - "CommonEq" - "CumTranslAdj" - "UnrealizedGainLossMktSec";
+				return AssetLiabDiffPlug;
+				}
+			var StockhldrsEq = "RedeemablePrefStock"+"AddPic"+"RetainedEarnings"+"Tstock"+"CommonEq"+"AssetLiabDiffPlug"+"CumTranslAdj"+"UnrealizedGainLossMktSec";
+			return StockhldrsEq;
+			}
+		}
+		
 		
 		
 		
