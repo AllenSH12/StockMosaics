@@ -37,6 +37,7 @@
 			return EBT;
 		}
 		
+<<<<<<< HEAD
 		function cashOpActivities(cashFlows[]) {
 			var totalCashOpActivities = sumVar(cashFlows[]);
 			return totalCashOpActivities;
@@ -48,6 +49,43 @@
 				total += variables[i];
 			}
 		}
+=======
+		function cashOpActivities("EBT","iExp","iTax","DnA","changeAR","changeInTax","changeInv","changePrepaidRev", "changeOtherCurrentAsset","changeNotePay","changeOtherCurrentLiab","changeAccExp","changeDefRev"); {
+			var iExp = 1;
+			var iTax = 1;
+			var DnA = 1;  
+			var changeAR = 1;
+			var changeInTax = 1;
+			var changeInv = 1;
+			var changePrepaidRev = 1;
+			var changeOtherCurrentAsset = 1;
+			var changeOtherCurrentLiab = 1;
+			var changeAccExp = 1;
+			var changedefRev = 1;
+			cashOpActivities = 
+			
+		function CapEx(); {
+			var CapEx = 2;
+			return CapEx;
+		}
+		
+		function FreeCashFlow("cashOpActivities", "CapEx"); {
+			var FreeCashFlow = cashOpActivities + CapEx;
+			return FreeCashFlow;
+		}
+		
+		function DiscountedCashFlow("FreeCashFlow", "WACC"); {
+			var WACC = .115;
+			var DiscountedCashFlow = "FreeCashFlow"/"WACC";
+			return DiscountedCashFlow;
+		}
+		
+		
+	
+			
+			
+			
+>>>>>>> wacc, fcf, discounted cf
 		
 	</script>
 </head>
