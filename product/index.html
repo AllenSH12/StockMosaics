@@ -18,10 +18,10 @@
 			Object = localAds + brandAds + other;
 			return Object;
 		}
-		/////
+		/*
 		loop totRev to account for  n-dimensional array
-		/////
-		
+		*/
+	
 		function grossProfit("totRev","CogsInclDnA") {
 			var CogsInclDnA = 2;
 			var grossProfit = totRev - CogsInclDnA;
@@ -29,20 +29,18 @@
 		}
 		
 		function EBIT("grossProfit","RnD","SnM","other")  {
-			var RnD = 1;
-			var SnM = 1;
-			var other = 1;
 			var EBIT = grossProfit - RnD - SnM - other;		
 			return EBIT;
 		}
 		
 		function EBT("EBIT","InterestFx") {
-			var InterestFX = 1;
-			var EBT = EBIT - IntnFx;
+			var EBT = EBIT - InterestFx;
 			return EBT;
 		}
 		
-		function cashOpActivities("EBT","iExp","iTax","DnA","changeAR","changeInTax","changeInv","changePrepaidRev", "changeOtherCurrentAsset","changeNotePay","changeOtherCurrentLiab","changeAccExp","changeDefRev"); {
+		function cashOpActivities("EBT","iExp","iTax","DnA","changeAR","changeInTax","changeInv","changePrepaidRev", "changeOtherCurrentAsset","changeNotePay","changeOtherCurrentLiab","changeAccExp","changeDefRev") {
+			//instead of passing in a ton of loose parameters
+			//this should just receive an array filled with the values it needs
 			var iExp = 1;
 			var iTax = 1;
 			var DnA = 1;  
@@ -54,13 +52,15 @@
 			var changeOtherCurrentLiab = 1;
 			var changeAccExp = 1;
 			var changedefRev = 1;
-			cashOpActivities = 
-			
-			
-	
-			
-			
-			
+			var cashOpActivities = 
+		}
+
+		function sumVar(variables[]) {
+			var total = 0;
+			for (var i=0; i<variables.length; i++) {
+				total += variables[i];
+			}
+		}
 		
 	</script>
 </head>
