@@ -59,9 +59,9 @@
 			return FreeCashFlow;
 		}
 		
-		function DCF("FreeCashFlow", "WACC"); {
+		function DCF("FreeCashFlow", "WACC", "Years"); {
 			var WACC = .115;
-			var DCF = "FreeCashFlow"/(1+"WACC");
+			var DCF = "FreeCashFlow"/(1+"WACC")^"Years";
 			return DCF;
 		}
 		
@@ -70,15 +70,6 @@
 			for (var i = 0; i< freeCashFlows.length; i++) {
 				total += DCF(freeCashFlows[i], WACC);
 			}
-			var DCF2014 = FreeCashFlow2014/(1+"WACC")^2;
-			var DCF2015 = FreeCashFlow2015/(1+"WACC")^3;
-			var DCF2016 = FreeCashFlow2016/(1+"WACC")^4;
-			var DCF2017 = FreeCashFlow2017/(1+"WACC")^5;
-			var DCF2018 = FreeCashFlow2018/(1+"WACC")^6;
-			var DCF2019 = FreeCashFlow2019/(1+"WACC")^7;
-			var DCF2020 = FreeCashFlow2020/(1+"WACC")^8;
-			var TotSumDiscountedCashFlows = "DCF2013" + "DCF2014" + "DCF2015" + "DCF2016" + "DCF2017" + "DCF2018" + "DCF2019" + "DCF2020";
-			return TotSumDiscountedCashFlows;
 		}
 		
 		/*where should we get DCF2014 - DCF2020 from...
