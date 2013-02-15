@@ -59,17 +59,30 @@
 			return FreeCashFlow;
 		}
 		
+<<<<<<< HEAD
 		function DCF("FreeCashFlow", "WACC", "Years"); {
 			var WACC = .115;
 			var DCF = "FreeCashFlow"/(1+"WACC")^"Years";
+=======
+		function DCF("FreeCashFlow", "WACC", "years"); {
+			var WACC = .115;
+			var DCF = FreeCashFlow/(1+WACC)^years;
+>>>>>>> fixed shit
 			return DCF;
 		}
 		
 		function SumDCF(freeCashFlows[]); {
-			var total = 0;
+			var TotSumDiscountedCashFlows = 0;
+			//visit every freeCashFlow
 			for (var i = 0; i< freeCashFlows.length; i++) {
-				total += DCF(freeCashFlows[i], WACC);
+				//compute DCF for each FCF
+				var DCF = DCF(freeCashFlows[i], WACC, i);
+				TotSumDiscountedCashFlows += DCF;
 			}
+<<<<<<< HEAD
+=======
+			return TotSumDiscountedCashFlows;
+>>>>>>> fixed shit
 		}
 		
 		/*where should we get DCF2014 - DCF2020 from...
