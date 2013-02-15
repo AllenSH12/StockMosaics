@@ -37,9 +37,8 @@
 			return EBT;
 		}
 		
-<<<<<<< HEAD
-		function cashOpActivities(cashFlows[]) {
-			var totalCashOpActivities = sumVar(cashFlows[]);
+		function cashOpActivities(OpcashFlows[]) {
+			var totalCashOpActivities = sumVar(OpcashFlows[]);
 			return totalCashOpActivities;
 		}
 
@@ -49,43 +48,56 @@
 				total += variables[i];
 			}
 		}
-=======
-		function cashOpActivities("EBT","iExp","iTax","DnA","changeAR","changeInTax","changeInv","changePrepaidRev", "changeOtherCurrentAsset","changeNotePay","changeOtherCurrentLiab","changeAccExp","changeDefRev"); {
-			var iExp = 1;
-			var iTax = 1;
-			var DnA = 1;  
-			var changeAR = 1;
-			var changeInTax = 1;
-			var changeInv = 1;
-			var changePrepaidRev = 1;
-			var changeOtherCurrentAsset = 1;
-			var changeOtherCurrentLiab = 1;
-			var changeAccExp = 1;
-			var changedefRev = 1;
-			cashOpActivities = 
-			
-		function CapEx(); {
-			var CapEx = 2;
-			return CapEx;
+		
+		function capEx() {
+			var capEx = 1;
+			return capEx;
 		}
 		
-		function FreeCashFlow("cashOpActivities", "CapEx"); {
+		function FreeCashFlow2013("cashOpActivities", "CapEx"); {
 			var FreeCashFlow = cashOpActivities + CapEx;
 			return FreeCashFlow;
 		}
 		
-		function DiscountedCashFlow("FreeCashFlow", "WACC"); {
+		function DCF2013("FreeCashFlow", "WACC"); {
 			var WACC = .115;
-			var DiscountedCashFlow = "FreeCashFlow"/"WACC";
-			return DiscountedCashFlow;
+			var DCF2013 = "FreeCashFlow"/(1+"WACC");
+			return DCF2013;
 		}
 		
+		function SumDCF("DCF2013","DCF2014","DCF2015","DCF2016","DCF2017","DCF2018","DCF2019","DCF2020"); {
+			var DCF2014 = FreeCashFlow2014/(1+"WACC")^2;
+			var DCF2015 = FreeCashFlow2015/(1+"WACC)^3;
+			var DCF2016 = FreeCashFlow2016/(1+"WACC)^4;
+			var DCF2017 = FreeCashFlow2017/(1+"WACC)^5;
+			var DCF2018 = FreeCashFlow2018/(1+"WACC)^6;
+			var DCF2019 = FreeCashFlow2019/(1+"WACC)^7;
+			var DCF2020 = FreeCashFlow2020/(1+"WACC)^8;
+			var TotSumDiscountedCashFlows = "DCF2013" + "DCF2014" + "DCF2015" + "DCF2016" + "DCF2017" + "DCF2018" + "DCF2019" + "DCF2020";
+			return TotSumDiscountedCashFlows;
+		}
 		
-	
-			
-			
-			
->>>>>>> wacc, fcf, discounted cf
+		/*where should we get DCF2014 - DCF2020 from...
+		*/
+		
+		function TermVal("FreeCashFlow20", "WACC", "termGrowthRate"); {
+			var TermVal = ["FreeCashFlow20"*(1+"termGrowthRate")]/("WACC - termGrowthRate");
+			return TermVal;
+		}
+		
+		function EV("TotSumDiscountedCashFlows","TermVal","CashEq","TotDebt"); {
+			var EV = "TotSumDiscountedCashFlows" + "TermVal" - "CashEq" + "TotDebt";
+			return EV;
+		}
+		
+		function PriceTarget("EV","SharesOut"); {
+			var PriceTarget = "EV"/"SharesOut";
+			return PriceTarget;
+		}			
+		
+		
+		
+		
 		
 	</script>
 </head>
