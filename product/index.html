@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="../product/resources/jquery-cookie-master/jquery.cookie.js"></script>
 	<script type="text/javascript">
 		function sumFields(a, b, c, d) {
-			var total = a + b + c + d;
+			var total = parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d);
 			alert(total);
-			document.getElementById("priceTarget").innerHTML=total;
+			$.cookie('target', total);
+			document.getElementById("priceTarget").innerHTML= total;
 		}
 	</script>
 </head>
@@ -13,15 +16,15 @@
 <body>
 	<h3>Growth Rates</h3><br>
 	<div>
-		<form name="babyForm">
-			Revenue: <input type="number" name="revenueRate" value=""><br>
-			Assets: <input type="number" name="assetRate"><br>
-			Liability: <input type="number" name="liabilityRate"><br>
-			R & D: <input type="number" name="rAndDRate"><br>
-			<button onclick=sumFields(revenueRate.value,assetRate.value,liabilityRate.value,rAndDRate.value)>GO</button>
+		<form name="babyForm" onsubmit="sumFields(revenueRate.value,assetRate.value,liabilityRate.value,rAndDRate.value)">
+			Revenue: <input type="number" name="revenueRate" /><br>
+			Assets: <input type="number" name="assetRate" /><br>
+			Liability: <input type="number" name="liabilityRate" /><br>
+			R & D: <input type="number" name="rAndDRate" /><br>
+			<input type="submit" value="Submit" />
 		</form>
-		<p id="priceTarget"></p>
 	</div>
+	<p>Price target: $</p><p id="priceTarget"></p>
 </body>
 
 
