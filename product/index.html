@@ -54,23 +54,23 @@
 			return capEx;
 		}
 		
-		function FreeCashFlow2013("cashOpActivities", "CapEx"); {
+		function FreeCashFlow2013("cashOpActivities", "CapEx") {
 			var FreeCashFlow = cashOpActivities + CapEx;
 			return FreeCashFlow;
 		}
 		
-		function DCF("FreeCashFlow", "WACC", "Years"); {
+		function DCF("FreeCashFlow", "WACC", "Years") {
 			var WACC = .115;
 			var DCF = FreeCashFlow/(1+WACC)^years;
 			return DCF;
 		}
 		
-		function SumDCF(freeCashFlows[]); {
+		function SumDCF(freeCashFlows[]) {
 			var TotSumDiscountedCashFlows = 0;
 			//visit every freeCashFlow
 			for (var i = 0; i< freeCashFlows.length; i++) {
 				//compute DCF for each FCF
-				var DCF = DCF(freeCashFlows[i], WACC, i);
+				var DCF = DCF(freeCashFlows[i], WACC, i+1);
 				TotSumDiscountedCashFlows += DCF;
 			}
 			return TotSumDiscountedCashFlows;
@@ -79,71 +79,65 @@
 		/*where should we get DCF2014 - DCF2020 from...
 		*/
 		
-		function TermVal("FreeCashFlow20", "WACC", "termGrowthRate"); {
-			var TermVal = ["FreeCashFlow20"*(1+"termGrowthRate")]/("WACC - termGrowthRate");
+		function TermVal("FreeCashFlow20", "WACC", "termGrowthRate") {
+			var TermVal = (FreeCashFlow20*(1+termGrowthRate))/(WACC - termGrowthRate);
 			return TermVal;
 		}
 		
-		function EV("TotSumDiscountedCashFlows","TermVal","CashEq","TotDebt"); {
-			var EV = "TotSumDiscountedCashFlows" + "TermVal" - "CashEq" + "TotDebt";
+		function EV("TotSumDiscountedCashFlows","TermVal","CashEq","TotDebt") {
+			var EV = TotSumDiscountedCashFlows + TermVal - CashEq + TotDebt;
 			return EV;
 		}
 		
-		function PriceTarget("EV","SharesOut"); {
-			var PriceTarget = "EV"/"SharesOut";
+		function PriceTarget("EV","SharesOut") {
+			var PriceTarget = EV/SharesOut;
 			return PriceTarget;
 		}			
 		
 		/*balance sheet
 		*/
 		
-		function currentAssets("CashEq","AcctsRec","StInv","MktSec","Inv","DefTaxAssets","PrepaidExp","AccExp","other"); {
-			var currentAssets = "cashEq" + "AcctsRec" + "StInv" + "MktSec" + "Inv" + "DefTaxAssets" + "PrepaidExp" + "AccExp" + "other";
+		function currentAssets("CashEq","AcctsRec","StInv","MktSec","Inv","DefTaxAssets","PrepaidExp","AccExp","other") {
+			var currentAssets = cashEq + AcctsRec + StInv + MktSec + Inv + DefTaxAssets + PrepaidExp + AccExp + other;
 			return currrentAssets;
 		}
 		
-		function longTermAssets("TangibleAssets","BldsStructures","MachineryEq","FurnitureEq","Land","AccDep","IntangAssets","Software","Goodwill","OtherNetInt","InvAndOtherAssets","InvSec","OtherRec","OtherAssets","DefTaxAssets","LongTimeDeposit","Others","Allowance"); {
-			var longTermAssets = "TangibleAssets"+"BldsStructures"+"MachineryEq"+"FurnitureEq"+"Land"+"AccDep"+"IntangAssets"+"Software"+"Goodwill"+"OtherNetInt"+"InvAndOtherAssets"+"InvSec"+"OtherRec"+"OtherAssets"+"DefTaxAssets"+"LongTimeDeposit"+"Others"+"Allowance";
+		function longTermAssets("TangibleAssets","BldsStructures","MachineryEq","FurnitureEq","Land","AccDep","IntangAssets","Software","Goodwill","OtherNetInt","InvAndOtherAssets","InvSec","OtherRec","OtherAssets","DefTaxAssets","LongTimeDeposit","Others","Allowance") {
+			var longTermAssets = TangibleAssets+BldsStructures+MachineryEq+FurnitureEq+Land+AccDep+IntangAssets+Software+Goodwill+OtherNetInt+InvAndOtherAssets+InvSec+OtherRec+OtherAssets+DefTaxAssets+LongTimeDeposit+Others+Allowance;
 			return longTermAssets;
 		}
 		
-		function TotAssets("currentAssets","longTermAssets"); {
-			var TotAssets = "currentAssets" + "longTermAssets";
+		function TotAssets("currentAssets","longTermAssets") {
+			var TotAssets = currentAssets + longTermAssets;
 			return TotAssets;
 		}
 		
-		function CurrentLiabilities("StNP","StDebt","StBorrowing","CurrentInstLTDebt","BondsDue","AP","AccExp","ItaxPay","AllowProd","DivPay","OtherCurrLiab"); {
-			var CurrentLiabilities = "StNP"+"StDebt"+"StBorrowing"+"CurrentInstLTDebt"+"BondsDue"+"AP"+"AccExp"+"ItaxPay"+"AllowProd"+"DivPay"+"OtherCurrLiab";
+		function CurrentLiabilities("StNP","StDebt","StBorrowing","CurrentInstLTDebt","BondsDue","AP","AccExp","ItaxPay","AllowProd","DivPay","OtherCurrLiab") {
+			var CurrentLiabilities = StNP+StDebt+StBorrowing+CurrentInstLTDebt+BondsDue+AP+AccExp+ItaxPay+AllowProd+DivPay+OtherCurrLiab;
 			return CurrentLiabilities;
 		}
 		
-		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
-			var NonCurrentLiab = "LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab";
+		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab") {
+			//what are you trying to do here?
+			var NonCurrentLiab = LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab;
 			return NonCurrentLiab;
 		}
 		
-		function TotLiab("CurrentLiabilities","NonCurrentLiab"); {
-			var TotLiab = "CurrentLiabilities" + "NonCurrentLiab";
+		function TotLiab("CurrentLiabilities","NonCurrentLiab") {
+			var TotLiab = CurrentLiabilities + NonCurrentLiab;
 			return TotLiab;
 		}
 		
-		function StockhldrsEq("RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","AssetLiabDiffPlug","CumTranslAdj","UnrealizedGainLossMktSec"); {
+		function StockhldrsEq("RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","AssetLiabDiffPlug","CumTranslAdj","UnrealizedGainLossMktSec") {
 			{
-			function AssetLiabDiffPlug("TotAssets","TotLiab","RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","CumTranslAdj","UnrealizedGainLossMktSec"); {
-				var AssetLiabDiffPlug = "TotAssets" - "TotLiab" - "RedeemablePrefStock" - "AddPic" - "RetainedEarnings" - "Tstock" - "CommonEq" - "CumTranslAdj" - "UnrealizedGainLossMktSec";
+			function AssetLiabDiffPlug("TotAssets","TotLiab","RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","CumTranslAdj","UnrealizedGainLossMktSec") {
+				var AssetLiabDiffPlug = TotAssets - TotLiab - RedeemablePrefStock - AddPic - RetainedEarnings - Tstock - CommonEq - CumTranslAdj - UnrealizedGainLossMktSec;
 				return AssetLiabDiffPlug;
 				}
-			var StockhldrsEq = "RedeemablePrefStock"+"AddPic"+"RetainedEarnings"+"Tstock"+"CommonEq"+"AssetLiabDiffPlug"+"CumTranslAdj"+"UnrealizedGainLossMktSec";
+			var StockhldrsEq = RedeemablePrefStock+AddPic+RetainedEarnings+Tstock+CommonEq+AssetLiabDiffPlug+CumTranslAdj+UnrealizedGainLossMktSec;
 			return StockhldrsEq;
 			}
 		}
-		
-		////*
-		*///
-		
-		
-		
-		
 		
 	</script>
 </head>
