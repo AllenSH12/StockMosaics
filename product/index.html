@@ -23,8 +23,7 @@
 		
 		function totalRevenue(localAds[],brandAds[],other[]) {
 			var placeholder = [localAds[],brandAds[],other[]];
-			var totals[] = sumArray(placeholder);
-
+			var totals[] = sumRows(placeholder);
 			grossProfit(totals[], cogsInclDnA[]);
 		}
 	
@@ -45,8 +44,11 @@
 			EBT(EBIT[],InterestFx[]);
 		}
 		
-		function EBT(EBIT,InterestFx) {
-			var EBT = EBIT - InterestFx;
+		function EBT(EBIT[],InterestFx[]) {
+			var EBT = [];
+			for (var i = 0; i < EBIT.length; i++) {
+				EBT[i] = EBIT[i] - InterestFx[i];
+			}
 			return EBT;
 		}
 		
@@ -192,6 +194,9 @@
 		var Research & Development = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
 		var Sales & Marketing = [0,0,0,0,0,0,0,0];
 		var Other = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
+
+
+
 
 		var Local Advertising=[0.591627906976744, 0.407948568088837, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, ]
 		var Brand Advertising=[0.152380952380952, 0.165289256198347, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
