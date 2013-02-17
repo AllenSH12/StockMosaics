@@ -47,6 +47,7 @@
 			for (var i=0; i<variables.length; i++) {
 				total += variables[i];
 			}
+			return total;
 		}
 		
 		function capEx() {
@@ -117,9 +118,14 @@
 			return CurrentLiabilities;
 		}
 		
+<<<<<<< HEAD
 		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab") {
 			//what are you trying to do here?
 			var NonCurrentLiab = LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab;
+=======
+		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
+			var NonCurrentLiab = "LtDebt"+"Bond"+"bondWarrant"+"LtBorrow"+"DefTaxLiab"+"ProvRiskCharge"+"RetirementSevBenef"+"OtherNonCurrLiab";
+>>>>>>> ooneline
 			return NonCurrentLiab;
 		}
 		
@@ -139,6 +145,13 @@
 			}
 		}
 		
+<<<<<<< HEAD
+=======
+		/*function CashFlowInv("proceedsSaleTangAssets", "PurchaseIntAssets","ProceedsSaleIntAssets","PurchaseInvSec","ProceedsSalesRedempInvSec","PurchaseStocksSubAffil","ProceedsStocksSubAffil","PmtsLTloansRec","CollectionsLTLoansRec","DecSTLoansRec","ProceedsTransfBus","OtherNet","PmtsTimeDeposit","ProceedsTimeDep"); {
+			var CashFlowInv = "proceedsSaleTangAssets"+"PurchaseIntAssets"+"ProceedsSaleIntAssets"+"PurchaseInvSec","ProceedsSalesRedempInvSec","PurchaseStocksSubAffil"+"ProceedsStocksSubAffil"+"PmtsLTloansRec"+"CollectionsLTLoansRec"+"DecSTLoansRec"+"ProceedsTransfBus"+"OtherNet"+"PmtsTimeDeposit"+"ProceedsTimeDep";
+		}*/
+
+>>>>>>> ooneline
 		function cashInvActivities(InvcashFlows[]) {
 			var totalCashInvActivities = sumVar(InvcashFlows[]);
 			return totalCashInvActivities;
@@ -167,6 +180,30 @@
 			var netChangeCash = "totalCashOpActivities" + "totalCashInvActivities" + "totalCashFinActivities";
 			return netChangeCash;
 		}
+<<<<<<< HEAD
+=======
+		
+		function EBITDA("netIncome","InterestFx","taxes","DnA"); {
+			EBITDA = "netIncome" +"InterestFx" + "taxes" + "DnA";
+			return EBITDA;
+		}
+		
+		function EBITDAtoEV("EBITDA","EV"); {
+			EBITDAtoEV = "EBITDA"/"EV";
+			return EBITDAtoEV;
+		}
+
+
+		var depreciationAndAmortizationExpense = [11,19,27,34,44,54, 57,60,63,66,69];
+
+		var extrapolatedStart = 6;
+		var constantGrowthRate = .04;
+
+		for (var i = extrapolatedStart; i < depreciationAndAmortizationExpense.length; i++) {
+			depreciationAndAmortizationExpense[i] = depreciationAndAmortizationExpense[i-1] * (1 + constantGrowthRate);
+		}
+
+>>>>>>> ooneline
 		
 		function EBITDA("netIncome","InterestFx","taxes","DnA"); {
 			EBITDA = "netIncome" +"InterestFx" + "taxes" + "DnA";
