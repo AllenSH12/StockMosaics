@@ -10,26 +10,39 @@
 			$.cookie('target', total);
 			document.getElementById("priceTarget").innerHTML= total;
 		}
-		
-		Object[] totRev {"localAds","brandAds","other" }; {
-			var localAds = 2;
-			var brandAds = 3;
-			var other = 4;
-			Object = localAds + brandAds + other;
-			return Object;
+
+		function sumRows(array[]) {
+			var totals = [];
+			for (var i = 0; i < array.length; i ++) {
+				for (var j = 0; j < array[i].length; j++) {
+					totals[i] += array[i][j];
+				}
+			}
+			return totals[];
 		}
-		/*
-		loop totRev to account for  n-dimensional array
-		*/
+		
+		function totalRevenue(localAds[],brandAds[],other[]) {
+			var placeholder = [localAds[],brandAds[],other[]];
+			var totals[] = sumArray(placeholder);
+
+			grossProfit(totals[], cogsInclDnA[]);
+		}
 	
-		function grossProfit(totRev,CogsInclDnA) {
-			var grossProfit = totRev - CogsInclDnA;
-			return grossProfit;
+		function grossProfit(totRev[],cogsInclDnA[]) {
+			var grossProfits = [];
+			for (var i = 0; i < totRev.length; i++) {
+				//gross profit for year i equals total revenue for year i less COGS for year i
+				grossProfits[i] = totRev[i] - cogsInclDnA[i];
+			}
+			EBIT(grossProfits[], RnD[], SnM[], other[]);
 		}
 		
-		function EBIT(grossProfit,RnD,SnM,other)  {
-			var EBIT = grossProfit - RnD - SnM - other;		
-			return EBIT;
+		function EBIT(grossProfit[],RnD[],SnM[],other[])  {
+			var EBIT = [];
+			for (var i = 0; i < grossProfit.length; i++) {
+				EBIT[i] = grossProfit[i] - RnD[i] - SnM[i] - other[i];
+			}
+			EBT(EBIT[],InterestFx[]);
 		}
 		
 		function EBT(EBIT,InterestFx) {
@@ -171,101 +184,43 @@
 			return EBITDAtoEV;
 		}
 
-		var localAds = [0.59,0.41, 0.03,0.03,0.03,0.03,0.03,0.03]
-		var extrapolatedStart = 2;
-		var constantGrowthRate = .03;
 
-		for (var i = extrapolatedStart; i < localAds.length; i++) {
-			localAds[i] = localAds[i-1] * (1 + constantGrowthRate);
-		}
+		var Local Advertising = [171.1,240.9,321.3,389.2,1412.90228,425.2893484,438.048028852];
+		var Brand Advertising = [24.2,28.2,34.1,38.9,140.47156,41.2809912,42.106611024];
+		var Other Services = [9.1,11.7,12,14,114.5656,14.856912,15.15405024];
+		var cogsInclDnA = [14,20,25,40,43,46,49,52];
+		var Research & Development = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
+		var Sales & Marketing = [0,0,0,0,0,0,0,0];
+		var Other = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
 
-		var BrandAds = [0.15,0.17,0.02, 0.02,0.02,0.02,0.02,0.02]
-		var extrapolatedStart = 3;
-		var constantGrowthRate = .02;
-
-		for (var i = extrapolatedStart; i < BrandAds.length; i++) {
-			BrandAds[i] = BrandAds[i-1] * (1 + constantGrowthRate);
-		}
-
-		var otherservices = [0.15,0.29,0.02, 0.02,0.02,0.02,0.02,0.02]
-		var extrapolatedStart = 3;
-		var constantGrowthRate = 0.02;
-
-		for (var i = extrapolatedStart; i < otherservices.length; i++) {
-			otherservices[i] = otherservices[i-1] * (1 + constantGrowthRate);
-		}
-
-		var CogsInclDnA = [0.07,0.07,0.7, 0.7,0.7,0.7,0.7,0.7]
-		var extrapolatedStart = 3;
-		var constantGrowthRate = 0.7;
-
-		for (var i = extrapolatedStart; i < CogsInclDnA.length; i++) {
-			CogsInclDnA[i] = CogsInclDnA[i-1] * (1 + CogsInclDnA);
-		}
-
-		var DnAExp = [0.28,0.29,.05, .05,.05,.05,.05,.05];
-
-		var extrapolatedStart = 5;
-		var constantGrowthRate = .04;
-
-		for (var i = extrapolatedStart; i < DnAExp.length; i++) {
-			DnAExp[i] = DnAExp[i-1] * (1 + constantGrowthRate);
-		}
-
-		var Dep = [0,0,0,0,0, 0,0,0,0,0];
-
-		var extrapolatedStart = 5;
-		var constantGrowthRate = .05;
-
-		for (var i = extrapolatedStart; i < Dep.length; i++) {
-			Dep[i] = Dep[i-1] * (1 + constantGrowthRate);
-		}
-
-		var AmortInt = [0,0,0,0,0, 0,0,0,0,0];
-
-		var extrapolatedStart = 5;
-		var constantGrowthRate = .05;
-
-		for (var i = extrapolatedStart; i < AmortInt.length; i++) {
-			AmortInt[i] = AmortInt[i-1] * (1 + constantGrowthRate);
-		}
-
-		var SGnA = [.15, .15,.15,.15,.15,.15,.15,.15];
-
-		var extrapolatedStart = 1;
-		var constantGrowthRate = .15;
-
-		for (var i = extrapolatedStart; i < SGnA.length; i++) {
-			SGnA[i] = SGnA[i-1] * (1 + constantGrowthRate);
-		}
-
-		var SGnA = [.15, .15,.15,.15,.15,.15,.15,.15];
-
-		var extrapolatedStart = 1;
-		var constantGrowthRate = .15;
-
-		for (var i = extrapolatedStart; i < SGnA.length; i++) {
-			SGnA[i] = SGnA[i-1] * (1 + constantGrowthRate);
-		}
-
-		var RnD = [.60,.40,.30,.20, .1,.1,.1,.1];
-
-		var extrapolatedStart = 4;
-		var constantGrowthRate = .1;
-
-		for (var i = extrapolatedStart; i < DnA.length; i++) {
-			DnA[i] = DnA[i-1] * (1 + constantGrowthRate);
-		}
-
-		for SGnAOther = [115, 161,209,251,276,303,334,367];
-
-		var extrapolatedStart = 1;
-		var constantGrowthRate = .05;
-
-		for (var i = extrapolatedStart; i < SGnAOther.length; i++) {
-			SGnAOther[i] = SGnAOther[i-1] * (1 + constantGrowthRate);
-		}
-
+		var Local Advertising=[0.591627906976744, 0.407948568088837, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, ]
+		var Brand Advertising=[0.152380952380952, 0.165289256198347, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		var Other Services=[0.151898734177215, 0.285714285714286, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		var Cost of Revenue Growth Rates=[0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, ]
+		var Cost of Revenue as % of Total Revenue=[]
+		var Depreciation & Amortization Expense=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Depreciation=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Amortization of Intangibles=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var SG&A Growth Rates=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, ]
+		var R&D Growth Rates=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1, ]
+		var SG&A Other Growth Rates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Interest (and fx) Growth Rates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Nonoperating Income (Expense) - Net=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Nonoperating Interest Income=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Other Income (Expense)=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Interest Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Gross Interest Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Interest Capitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Fixed Assets Impariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Unusual Expense (Income) - Net=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Financial Assets Impairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Reorganization and Restructure Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Goodwill Write-off=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Legal Claim Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Unrealized Investment Loss (Gain)=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Other Unusual Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
 
 
 
