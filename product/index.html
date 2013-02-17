@@ -185,15 +185,65 @@
 			return EBITDAtoEV;
 		}
 
-		var depreciationAndAmortizationExpense = [11,19,27,34,44,54, 57,60,63,66,69];
+		var DnAExp = [19,27,34,44,54, 57,60,63,66,69];
 
-		var extrapolatedStart = 6;
+		var extrapolatedStart = 5;
 		var constantGrowthRate = .04;
 
-		for (var i = extrapolatedStart; i < depreciationAndAmortizationExpense.length; i++) {
-			depreciationAndAmortizationExpense[i] = depreciationAndAmortizationExpense[i-1] * (1 + constantGrowthRate);
+		for (var i = extrapolatedStart; i < DnAExp.length; i++) {
+			DnAExp[i] = DnAExp[i-1] * (1 + constantGrowthRate);
 		}
-		
+
+		var localAds = [0.59,0.41, 0.03,0.03,0.03,0.03,0.03,0.03]
+		var extrapolatedStart = 2;
+		var constantGrowthRate = .03;
+
+		for (var i = extrapolatedStart; i < localAds.length; i++) {
+			localAds[i] = localAds[i-1] * (1 + constantGrowthRate);
+		}
+
+		var BrandAds = [0.15,0.17,0.02, 0.02,0.02,0.02,0.02,0.02]
+		var extrapolatedStart = 3;
+		var constantGrowthRate = .02;
+
+		for (var i = extrapolatedStart; i < BrandAds.length; i++) {
+			BrandAds[i] = BrandAds[i-1] * (1 + constantGrowthRate);
+		}
+
+		var otherservices = [0.15,0.29,0.02, 0.02,0.02,0.02,0.02,0.02]
+		var extrapolatedStart = 3;
+		var constantGrowthRate = 0.02;
+
+		for (var i = extrapolatedStart; i < otherservices.length; i++) {
+			otherservices[i] = otherservices[i-1] * (1 + constantGrowthRate);
+		}
+
+		var CogsInclDnA = [0.07,0.07,0.7, 0.7,0.7,0.7,0.7,0.7]
+		var extrapolatedStart = 3;
+		var constantGrowthRate = 0.7;
+
+		for (var i = extrapolatedStart; i < CogsInclDnA.length; i++) {
+			CogsInclDnA[i] = CogsInclDnA[i-1] * (1 + CogsInclDnA);
+		}
+
+		var 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</script>
 </head>
 
