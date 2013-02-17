@@ -139,6 +139,45 @@
 			}
 		}
 		
+		function cashInvActivities(InvcashFlows[]) {
+			var totalCashInvActivities = sumVar(InvcashFlows[]);
+			return totalCashInvActivities;
+		}
+
+		function sumVar(variables[]) {
+			var total = 0;
+			for (var i=0; i<variables.length; i++) {
+				total += variables[i];
+			}
+		}
+
+		function cashFinActivities(FincashFlows[]) {
+			var totalCashFinActivities = sumVar(FincashFlows[]);
+			return totalCashFinActivities;
+		}
+
+		function SumVar(variables[]) {
+			var total = 0;
+			for (var i=0; i<variables.length; i++) {
+				total +=variables[i];
+			}
+		}
+
+		function netChangeCash("totalCashOpActivities","totalCashInvActivities","totalCashFinActivities"); {
+			var netChangeCash = "totalCashOpActivities" + "totalCashInvActivities" + "totalCashFinActivities";
+			return netChangeCash;
+		}
+		
+		function EBITDA("netIncome","InterestFx","taxes","DnA"); {
+			EBITDA = "netIncome" +"InterestFx" + "taxes" + "DnA";
+			return EBITDA;
+		}
+		
+		function EBITDAtoEV("EBITDA","EV"); {
+			EBITDAtoEV = "EBITDA"/"EV";
+			return EBITDAtoEV;
+		}
+		
 	</script>
 </head>
 
