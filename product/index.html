@@ -31,13 +31,13 @@
 				//gross profit for year i equals total revenue for year i less COGS for year i
 				grossProfits[i] = totRev[i] - cogsInclDnA[i];
 			}
-			EBIT(grossProfits[], RnD[], SnM[], other[]);
+			EBIT(grossProfits[], RnD[], SnM[], OtherExp[]);
 		}
 		
 		function EBIT(grossProfit[],RnD[],SnM[],OtherExp[])  {
 			var EBIT = [];
 			for (var i = 0; i < grossProfit.length; i++) {
-				EBIT[i] = grossProfit[i] - RnD[i] - SnM[i] - other[i];
+				EBIT[i] = grossProfit[i] - RnD[i] - SnM[i] - OtherExp[i];
 			}
 			EBT(EBIT[],InterestFx[]);
 		}
@@ -109,7 +109,7 @@
 		}
 		
 		function longTermAssets(TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],OtherLTAssets[],Allowance[]) {
-			var placeholder = [TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],Others[],Allowance[]];
+			var placeholder = [TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],OtherLTAssets[],Allowance[]];
 			var longTermAssets[] = sumRows(placeholder);
 		}
 		
@@ -125,6 +125,7 @@
 		
 		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab") {
 			//what are you trying to do here?
+			//why is there 2 NonCurrentLiab?
 			var NonCurrentLiab = LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab;
 		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
 			var NonCurrentLiab = LtDebt+Bond+bondWarrant+LtBorrow+DefTaxLiab+ProvRiskCharge+RetirementSevBenef+OtherNonCurrLiab;
@@ -177,13 +178,13 @@
 		}
 
 
-		var localAds = [171.1,240.9,321.3,389.2,1412.90228,425.2893484,438.048028852];
-		var brandAds = [24.2,28.2,34.1,38.9,140.47156,41.2809912,42.106611024];
-		var otherServices = [9.1,11.7,12,14,114.5656,14.856912,15.15405024];
+		var localAds = [171.1,240.9,321.3,389,1412,425,438];
+		var brandAds = [24.2,28.2,34.1,38.9,140.47156,41.28,42.1];
+		var otherServices = [9.1,11.7,12,14,114.5656,14.85,15.15];
 		var cogsInclDnA = [14,20,25,40,43,46,49,52];
-		var RnD = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
+		var RnD = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
 		var SnM = [0,0,0,0,0,0,0,0];
-		var OtherExp = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
+		var OtherExp = [114.832,160.7648,208.99,250.79,275.87,303.46,333.81,367.186];
 
 
 		var CashEq = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
@@ -196,6 +197,43 @@
 		var AccRev = [0,0,0,,0,0,0,0];
 		var otherCurrAssets = [0.124848,0.12734496,0.1298918592,0.132489696384,0.13513949031168,0.137842280117914,0.140599125720272,0.143411108234677];
 
+		var TangibleAssets = [0.11,0.11,0.11,0.12,0.12,0.12,0.12,0.12];
+		var AccDep = [0,0,0,0,0,0,0,0,];
+		var Software = [0,0,0,0,0,0,0,0,];
+		var Goodwill = [0,0,0,0,0,0,0,0,];
+		var OtherNetInt = [0,0,0,0,0,0,0,0,];
+		var InvAndOtherAssets = [0,0,0,0,0,0,0,0,];
+		var DefTaxAssets = [0,0,0,0,0,0,0,0,];
+		var OtherLTAssets = [0,0,0,0,0,0,0,0,];
+
+		var StNP = [0,0,0,0,0,0,0,0,];
+		var StDebt = [0,0,0,0,0,0,0,0,];
+		var StBorrowing = [0,0,0,0,0,0,0,0,];
+		var CurrentInstLTDebt = [0,0,0,0,0,0,0,0,];
+		var BondsDue = [0,0,0,0,0,0,0,0,];
+		var AP = [0.5,0.52,0.55,0.57,0.60,0.63,0.66,0.77,];
+		var AccExp = [0.62,0.65,0.68,0.71,0.75,0.79,0.83,0.87,];
+		var ItaxPay = [0,0,0,0,0,0,0,0,];
+		var AllowProd = [0,0,0,0,0,0,0,0,];
+		var DivPay = [0,0,0,0,0,0,0,0,];
+		var OtherCurrLiab = [2.64,2.77,2.91,3.05,3.20,3.36,3.53,3.71];
+
+		var LtDebt = [0,0,0,0,0,0,0,0,];
+		var Bond = [0,0,0,0,0,0,0,0,];
+		var LtBorrow = [0,0,0,0,0,0,0,0,];
+		var DefTaxLiab = [0,0,0,0,0,0,0,0,];
+		var ProvRiskCharge = [0,0,0,0,0,0,0,0,];
+		var RetirementSevBenef = [0,0,0,0,0,0,0,0,];
+		var OtherNonCurrLiab = [0.6,0.63,0.66,0.69,0.72,0.76,0.76,0.80,0.84];
+
+		var RedeemablePrefStock = [0,0,0,0,0,0,0,0,];
+		var AddPic = [148.7,151.7,154.7,157.8,161,164.2,167.5,170.9,];
+		var RetainedEarnings = [49.3,123.6,224.5,336.7,428.6,497.1,539.2,551.3,];
+		var Tstock = [0,0,0,0,0,0,0,0,];
+		var CommonEq = [14.2,14.5,14.8,15.1,15.4,15.7,16,16.3,];
+		var AssetLiabDiffPlug = [-96.5,-101.7,-108.2,-115.3,-121.5,-126.6,-130.6,-133.2,];
+		var CumTranslAdj = [0,0,0,0,0,0,0,0,];
+		var UnrealizedGainLossMktSec = [0,0,0,0,0,0,0,0,];
 
 
 
@@ -226,6 +264,9 @@
 		var LegalClaimExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
 		var UnrealizedInvLossGain=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
 		var OtherUnusualExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+
+		var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534 ]
+
 
 
 
