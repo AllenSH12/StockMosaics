@@ -22,17 +22,17 @@
 		loop totRev to account for  n-dimensional array
 		*/
 	
-		function grossProfit("totRev","CogsInclDnA") {
+		function grossProfit(totRev,CogsInclDnA) {
 			var grossProfit = totRev - CogsInclDnA;
 			return grossProfit;
 		}
 		
-		function EBIT("grossProfit","RnD","SnM","other")  {
+		function EBIT(grossProfit,RnD,SnM,other)  {
 			var EBIT = grossProfit - RnD - SnM - other;		
 			return EBIT;
 		}
 		
-		function EBT("EBIT","InterestFx") {
+		function EBT(EBIT,InterestFx) {
 			var EBT = EBIT - InterestFx;
 			return EBT;
 		}
@@ -55,12 +55,12 @@
 			return capEx;
 		}
 		
-		function FreeCashFlow2013("cashOpActivities", "CapEx") {
+		function FreeCashFlow2013(cashOpActivities, CapEx) {
 			var FreeCashFlow = cashOpActivities + CapEx;
 			return FreeCashFlow;
 		}
 		
-		function DCF("FreeCashFlow", "WACC", "Years") {
+		function DCF(FreeCashFlow, WACC, Years) {
 			var WACC = .115;
 			var DCF = FreeCashFlow/(1+WACC)^years;
 			return DCF;
@@ -80,17 +80,17 @@
 		/*where should we get DCF2014 - DCF2020 from...
 		*/
 		
-		function TermVal("FreeCashFlow20", "WACC", "termGrowthRate") {
+		function TermVal(FreeCashFlow20, WACC, termGrowthRate) {
 			var TermVal = (FreeCashFlow20*(1+termGrowthRate))/(WACC - termGrowthRate);
 			return TermVal;
 		}
 		
-		function EV("TotSumDiscountedCashFlows","TermVal","CashEq","TotDebt") {
+		function EV(TotSumDiscountedCashFlows,TermVal,CashEq,TotDebt) {
 			var EV = TotSumDiscountedCashFlows + TermVal - CashEq + TotDebt;
 			return EV;
 		}
 		
-		function PriceTarget("EV","SharesOut") {
+		function PriceTarget(EV,SharesOut) {
 			var PriceTarget = EV/SharesOut;
 			return PriceTarget;
 		}			
@@ -98,12 +98,12 @@
 		/*balance sheet
 		*/
 		
-		function currentAssets("CashEq","AcctsRec","StInv","MktSec","Inv","DefTaxAssets","PrepaidExp","AccExp","other") {
+		function currentAssets(CashEq,AcctsRec,StInv,MktSec,Inv,DefTaxAssets,PrepaidExp,AccExp,other) {
 			var currentAssets = cashEq + AcctsRec + StInv + MktSec + Inv + DefTaxAssets + PrepaidExp + AccExp + other;
 			return currrentAssets;
 		}
 		
-		function longTermAssets("TangibleAssets","BldsStructures","MachineryEq","FurnitureEq","Land","AccDep","IntangAssets","Software","Goodwill","OtherNetInt","InvAndOtherAssets","InvSec","OtherRec","OtherAssets","DefTaxAssets","LongTimeDeposit","Others","Allowance") {
+		function longTermAssets(TangibleAssets,BldsStructures,MachineryEq,FurnitureEq,Land,AccDep,IntangAssets,Software,Goodwill,OtherNetInt,InvAndOtherAssets,InvSec,OtherRec,OtherAssets,DefTaxAssets,LongTimeDeposit,Others,Allowance) {
 			var longTermAssets = TangibleAssets+BldsStructures+MachineryEq+FurnitureEq+Land+AccDep+IntangAssets+Software+Goodwill+OtherNetInt+InvAndOtherAssets+InvSec+OtherRec+OtherAssets+DefTaxAssets+LongTimeDeposit+Others+Allowance;
 			return longTermAssets;
 		}
@@ -122,7 +122,7 @@
 			//what are you trying to do here?
 			var NonCurrentLiab = LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab;
 		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
-			var NonCurrentLiab = "LtDebt"+"Bond"+"bondWarrant"+"LtBorrow"+"DefTaxLiab"+"ProvRiskCharge"+"RetirementSevBenef"+"OtherNonCurrLiab";
+			var NonCurrentLiab = LtDebt+Bond+bondWarrant+LtBorrow+DefTaxLiab+ProvRiskCharge+RetirementSevBenef+OtherNonCurrLiab;
 			return NonCurrentLiab;
 		}
 		
@@ -151,37 +151,23 @@
 			return totalCashInvActivities;
 		}
 
-		function sumVar(variables[]) {
-			var total = 0;
-			for (var i=0; i<variables.length; i++) {
-				total += variables[i];
-			}
-		}
-
 		function cashFinActivities(FincashFlows[]) {
 			var totalCashFinActivities = sumVar(FincashFlows[]);
 			return totalCashFinActivities;
 		}
 
-		function SumVar(variables[]) {
-			var total = 0;
-			for (var i=0; i<variables.length; i++) {
-				total +=variables[i];
-			}
-		}
-
 		function netChangeCash("totalCashOpActivities","totalCashInvActivities","totalCashFinActivities"); {
-			var netChangeCash = "totalCashOpActivities" + "totalCashInvActivities" + "totalCashFinActivities";
+			var netChangeCash = totalCashOpActivities + totalCashInvActivities + totalCashFinActivities;
 			return netChangeCash;
 		}
 		
 		function EBITDA("netIncome","InterestFx","taxes","DnA"); {
-			EBITDA = "netIncome" +"InterestFx" + "taxes" + "DnA";
+			EBITDA = netIncome + InterestFx + taxes + DnA;
 			return EBITDA;
 		}
 		
 		function EBITDAtoEV("EBITDA","EV"); {
-			EBITDAtoEV = "EBITDA"/"EV";
+			EBITDAtoEV = EBITDA/EV;
 			return EBITDAtoEV;
 		}
 
