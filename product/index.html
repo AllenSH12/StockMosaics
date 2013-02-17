@@ -185,15 +185,6 @@
 			return EBITDAtoEV;
 		}
 
-		var DnAExp = [19,27,34,44,54, 57,60,63,66,69];
-
-		var extrapolatedStart = 5;
-		var constantGrowthRate = .04;
-
-		for (var i = extrapolatedStart; i < DnAExp.length; i++) {
-			DnAExp[i] = DnAExp[i-1] * (1 + constantGrowthRate);
-		}
-
 		var localAds = [0.59,0.41, 0.03,0.03,0.03,0.03,0.03,0.03]
 		var extrapolatedStart = 2;
 		var constantGrowthRate = .03;
@@ -226,7 +217,71 @@
 			CogsInclDnA[i] = CogsInclDnA[i-1] * (1 + CogsInclDnA);
 		}
 
-		var 
+		var DnAExp = [0.28,0.29,.05, .05,.05,.05,.05,.05];
+
+		var extrapolatedStart = 5;
+		var constantGrowthRate = .04;
+
+		for (var i = extrapolatedStart; i < DnAExp.length; i++) {
+			DnAExp[i] = DnAExp[i-1] * (1 + constantGrowthRate);
+		}
+
+		var Dep = [0,0,0,0,0, 0,0,0,0,0];
+
+		var extrapolatedStart = 5;
+		var constantGrowthRate = .05;
+
+		for (var i = extrapolatedStart; i < Dep.length; i++) {
+			Dep[i] = Dep[i-1] * (1 + constantGrowthRate);
+		}
+
+		var AmortInt = [0,0,0,0,0, 0,0,0,0,0];
+
+		var extrapolatedStart = 5;
+		var constantGrowthRate = .05;
+
+		for (var i = extrapolatedStart; i < AmortInt.length; i++) {
+			AmortInt[i] = AmortInt[i-1] * (1 + constantGrowthRate);
+		}
+
+		var SGnA = [.15, .15,.15,.15,.15,.15,.15,.15];
+
+		var extrapolatedStart = 1;
+		var constantGrowthRate = .15;
+
+		for (var i = extrapolatedStart; i < SGnA.length; i++) {
+			SGnA[i] = SGnA[i-1] * (1 + constantGrowthRate);
+		}
+
+		var SGnA = [.15, .15,.15,.15,.15,.15,.15,.15];
+
+		var extrapolatedStart = 1;
+		var constantGrowthRate = .15;
+
+		for (var i = extrapolatedStart; i < SGnA.length; i++) {
+			SGnA[i] = SGnA[i-1] * (1 + constantGrowthRate);
+		}
+
+		var RnD = [.60,.40,.30,.20, .1,.1,.1,.1];
+
+		var extrapolatedStart = 4;
+		var constantGrowthRate = .1;
+
+		for (var i = extrapolatedStart; i < DnA.length; i++) {
+			DnA[i] = DnA[i-1] * (1 + constantGrowthRate);
+		}
+
+		for SGnAOther = [115, 161,209,251,276,303,334,367];
+
+		var extrapolatedStart = 1;
+		var constantGrowthRate = .05;
+
+		for (var i = extrapolatedStart; i < SGnAOther.length; i++) {
+			SGnAOther[i] = SGnAOther[i-1] * (1 + constantGrowthRate);
+		}
+
+
+
 
 
 
