@@ -2,12 +2,10 @@
 <html>
 <head>
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="../product/resources/jquery-cookie-master/jquery.cookie.js"></script>
 	<script type="text/javascript">
 		function sumFields(a, b, c, d) {
 			var total = parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d);
 			alert(total);
-			$.cookie('target', total);
 			document.getElementById("priceTarget").innerHTML= total;
 		}
 
@@ -55,14 +53,6 @@
 		function cashOpActivities(OpcashFlows[]) {
 			var totalCashOpActivities = sumVar(OpcashFlows[]);
 			return totalCashOpActivities;
-		}
-
-		function sumVar(variables[]) {
-			var total = 0;
-			for (var i=0; i<variables.length; i++) {
-				total += variables[i];
-			}
-			return total;
 		}
 		
 		function capEx() {
@@ -113,17 +103,17 @@
 		/*balance sheet
 		*/
 		
-		function currentAssets(CashEq,AcctsRec,StInv,MktSec,Inv,DefTaxAssets,PrepaidExp,AccExp,other) {
-			var currentAssets = cashEq + AcctsRec + StInv + MktSec + Inv + DefTaxAssets + PrepaidExp + AccExp + other;
-			return currrentAssets;
+		function currentAssets(CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],other[]) {
+			var placeholder = [CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],other[]];
+			var currentAssets[] = sumRows(placeholder);
 		}
 		
-		function longTermAssets(TangibleAssets,BldsStructures,MachineryEq,FurnitureEq,Land,AccDep,IntangAssets,Software,Goodwill,OtherNetInt,InvAndOtherAssets,InvSec,OtherRec,OtherAssets,DefTaxAssets,LongTimeDeposit,Others,Allowance) {
-			var longTermAssets = TangibleAssets+BldsStructures+MachineryEq+FurnitureEq+Land+AccDep+IntangAssets+Software+Goodwill+OtherNetInt+InvAndOtherAssets+InvSec+OtherRec+OtherAssets+DefTaxAssets+LongTimeDeposit+Others+Allowance;
-			return longTermAssets;
+		function longTermAssets(TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],Others[],Allowance[]) {
+			var placeholder = [TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],Others[],Allowance[]];
+			var longTermAssets[] = sumRows(placeholder);
 		}
 		
-		function TotAssets("currentAssets","longTermAssets") {
+		function TotAssets(currentAssets,longTermAssets) {
 			var TotAssets = currentAssets + longTermAssets;
 			return TotAssets;
 		}
@@ -194,6 +184,17 @@
 		var Research & Development = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
 		var Sales & Marketing = [0,0,0,0,0,0,0,0];
 		var Other = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
+
+
+		var Cash and equivalents = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
+		var Accounts Receivable, net = [3.599784,3.67177968,3.7452152736,3.820119579072,3.89652197065344,3.97445241006651,4.05394145826784,4.1350202874332];
+		var Short Term Investments = [0,0,0,0,0,0,0,0];
+		var Marketable securities = [0,0,0,0,0,0,0,0];
+		var Inventories = [0,0,0,0,0,0,0,0];
+		var Deferred tax assets = [0,0,0,0,0,0,0,0];
+		var Prepaid Expenses = [0.10404,0.1061208,0.108243216,0.11040808032,0.1126162419264,0.114868566764928,0.117165938100227,0.119509256862231];
+		var Accrued revenue = [0,0,0,,0,0,0,0];
+		var Other = [0.124848,0.12734496,0.1298918592,0.132489696384,0.13513949031168,0.137842280117914,0.140599125720272,0.143411108234677];
 
 
 
