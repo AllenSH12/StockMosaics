@@ -19,8 +19,8 @@
 			return totals[];
 		}
 		
-		function totalRevenue(localAds[],brandAds[],other[]) {
-			var placeholder = [localAds[],brandAds[],other[]];
+		function totalRevenue(localAds[],brandAds[],otherServices[]) {
+			var placeholder = [localAds[],brandAds[],otherServices[]];
 			var totals[] = sumRows(placeholder);
 			grossProfit(totals[], cogsInclDnA[]);
 		}
@@ -34,7 +34,7 @@
 			EBIT(grossProfits[], RnD[], SnM[], other[]);
 		}
 		
-		function EBIT(grossProfit[],RnD[],SnM[],other[])  {
+		function EBIT(grossProfit[],RnD[],SnM[],OtherExp[])  {
 			var EBIT = [];
 			for (var i = 0; i < grossProfit.length; i++) {
 				EBIT[i] = grossProfit[i] - RnD[i] - SnM[i] - other[i];
@@ -103,12 +103,12 @@
 		/*balance sheet
 		*/
 		
-		function currentAssets(CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],other[]) {
-			var placeholder = [CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],other[]];
+		function currentAssets(CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],otherCurrAssets[]) {
+			var placeholder = [CashEq[],AcctsRec[],StInv[],MktSec[],Inv[],DefTaxAssets[],PrepaidExp[],AccExp[],otherCurrAssets[]];
 			var currentAssets[] = sumRows(placeholder);
 		}
 		
-		function longTermAssets(TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],Others[],Allowance[]) {
+		function longTermAssets(TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],OtherLTAssets[],Allowance[]) {
 			var placeholder = [TangibleAssets[],BldsStructures[],MachineryEq[],FurnitureEq[],Land[],AccDep[],IntangAssets[],Software[],Goodwill[],OtherNetInt[],InvAndOtherAssets[],InvSec[],OtherRec[],OtherAssets[],DefTaxAssets[],LongTimeDeposit[],Others[],Allowance[]];
 			var longTermAssets[] = sumRows(placeholder);
 		}
@@ -177,56 +177,55 @@
 		}
 
 
-		var Local Advertising = [171.1,240.9,321.3,389.2,1412.90228,425.2893484,438.048028852];
-		var Brand Advertising = [24.2,28.2,34.1,38.9,140.47156,41.2809912,42.106611024];
-		var Other Services = [9.1,11.7,12,14,114.5656,14.856912,15.15405024];
+		var localAds = [171.1,240.9,321.3,389.2,1412.90228,425.2893484,438.048028852];
+		var brandAds = [24.2,28.2,34.1,38.9,140.47156,41.2809912,42.106611024];
+		var otherServices = [9.1,11.7,12,14,114.5656,14.856912,15.15405024];
 		var cogsInclDnA = [14,20,25,40,43,46,49,52];
-		var Research & Development = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
-		var Sales & Marketing = [0,0,0,0,0,0,0,0];
-		var Other = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
+		var RnD = [19.2,26.88,34.944,41.9328,46.12608,50.738688,55.8125568,61.39381248];
+		var SnM = [0,0,0,0,0,0,0,0];
+		var OtherExp = [114.832,160.7648,208.99424,250.793088,275.8723968,303.45963648,333.805600128,367.1861601408];
 
 
-		var Cash and equivalents = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
-		var Accounts Receivable, net = [3.599784,3.67177968,3.7452152736,3.820119579072,3.89652197065344,3.97445241006651,4.05394145826784,4.1350202874332];
-		var Short Term Investments = [0,0,0,0,0,0,0,0];
-		var Marketable securities = [0,0,0,0,0,0,0,0];
-		var Inventories = [0,0,0,0,0,0,0,0];
-		var Deferred tax assets = [0,0,0,0,0,0,0,0];
-		var Prepaid Expenses = [0.10404,0.1061208,0.108243216,0.11040808032,0.1126162419264,0.114868566764928,0.117165938100227,0.119509256862231];
-		var Accrued revenue = [0,0,0,,0,0,0,0];
-		var Other = [0.124848,0.12734496,0.1298918592,0.132489696384,0.13513949031168,0.137842280117914,0.140599125720272,0.143411108234677];
+		var CashEq = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
+		var AcctsRec = [3.599784,3.67177968,3.7452152736,3.820119579072,3.89652197065344,3.97445241006651,4.05394145826784,4.1350202874332];
+		var StInv = [0,0,0,0,0,0,0,0];
+		var MktSec = [0,0,0,0,0,0,0,0];
+		var Inv = [0,0,0,0,0,0,0,0];
+		var DefTaxAssets = [0,0,0,0,0,0,0,0];
+		var PrepaidExp = [0.10404,0.1061208,0.108243216,0.11040808032,0.1126162419264,0.114868566764928,0.117165938100227,0.119509256862231];
+		var AccRev = [0,0,0,,0,0,0,0];
+		var otherCurrAssets = [0.124848,0.12734496,0.1298918592,0.132489696384,0.13513949031168,0.137842280117914,0.140599125720272,0.143411108234677];
 
 
 
 
-		var Local Advertising=[0.591627906976744, 0.407948568088837, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, ]
-		var Brand Advertising=[0.152380952380952, 0.165289256198347, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var Other Services=[0.151898734177215, 0.285714285714286, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		/*var localAds=[0.591627906976744, 0.407948568088837, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, ]
+		var brandAds=[0.152380952380952, 0.165289256198347, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
+		var otherServices=[0.151898734177215, 0.285714285714286, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ] */
+		/*var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
 		var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var Cost of Revenue Growth Rates=[0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, ]
-		var Cost of Revenue as % of Total Revenue=[]
-		var Depreciation & Amortization Expense=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Depreciation=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Amortization of Intangibles=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var SG&A Growth Rates=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, ]
-		var R&D Growth Rates=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1, ]
-		var SG&A Other Growth Rates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Interest (and fx) Growth Rates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Nonoperating Income (Expense) - Net=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Nonoperating Interest Income=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Other Income (Expense)=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Interest Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Gross Interest Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Interest Capitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Fixed Assets Impariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Unusual Expense (Income) - Net=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Financial Assets Impairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Reorganization and Restructure Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Goodwill Write-off=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Legal Claim Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Unrealized Investment Loss (Gain)=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Other Unusual Expense=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Cost of Revenue Growth Rates=[0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, ] */
+		var DnA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var Dep=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var AmortInt=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var SGnAGrowthRate=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, ]
+		var RnDGrowthRate=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1, ]
+		var SGnAOtherGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var IntnFXGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var NonopIncomeExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var NonopIntIncome=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var OtherIncExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var IntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var GrossIntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var IntCapitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var FixedAssetsImpariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var UnusualExpInc=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var FinAssetsImpairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var ReorgRestructureExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var GoodwillWriteOff=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var LegalClaimExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var UnrealizedInvLossGain=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
+		var OtherUnusualExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
 
 
 
