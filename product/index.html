@@ -3,11 +3,12 @@
 <head>
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
-		function sumFields(a, b, c, d) {
-			var total = parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d);
-			alert(total);
-			document.getElementById("priceTarget").innerHTML= total;
-		}
+
+		var totalUnitPrice = 0;
+		$('.unitprice').each(function(index) {
+		    totalUnitPrice += parseInt($(this).val());
+		    // parse the value to an Integer (otherwise it'll be concatenated as string) or use parseFloat for decimals
+		});
 
 		function sumRows(array[]) {
 			var totals = [];
@@ -49,6 +50,14 @@
 				EBT[i] = EBIT[i] - InterestFx[i];
 			}
 			return EBT;
+		}
+
+		function netIncome(EBT[], taxes[]) {
+			var netIncome = [];
+			for (var i=0; i<EBT.length; i++) {
+				netIncome[i] = EBT[i] - taxes[i];
+			}
+			EBITDA(netIncome[],InterestFx[],taxes[],DnA[]);
 		}
 		
 		function cashOpActivities(OpcashFlows[]) {
@@ -119,28 +128,28 @@
 			return TotAssets;
 		}
 		
-		function CurrentLiabilities("StNP","StDebt","StBorrowing","CurrentInstLTDebt","BondsDue","AP","AccExp","ItaxPay","AllowProd","DivPay","OtherCurrLiab") {
+		function CurrentLiabilities(StNP,StDebt,StBorrowing,CurrentInstLTDebt,BondsDue,AP,AccExp,ItaxPay,AllowProd,DivPay,OtherCurrLiab) {
 			var CurrentLiabilities = StNP+StDebt+StBorrowing+CurrentInstLTDebt+BondsDue+AP+AccExp+ItaxPay+AllowProd+DivPay+OtherCurrLiab;
 			return CurrentLiabilities;
 		}
 		
-		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab") {
+		function NonCurrentLiab(LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab) {
 			//what are you trying to do here?
 			//why is there 2 NonCurrentLiab?
 			var NonCurrentLiab = LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab;
-		function NonCurrentLiab("LtDebt","Bond","bondWarrant","LtBorrow","DefTaxLiab","ProvRiskCharge","RetirementSevBenef","OtherNonCurrLiab"); {
+		function NonCurrentLiab(LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab) {
 			var NonCurrentLiab = LtDebt+Bond+bondWarrant+LtBorrow+DefTaxLiab+ProvRiskCharge+RetirementSevBenef+OtherNonCurrLiab;
 			return NonCurrentLiab;
 		}
 		
-		function TotLiab("CurrentLiabilities","NonCurrentLiab") {
+		function TotLiab(CurrentLiabilities,NonCurrentLiab) {
 			var TotLiab = CurrentLiabilities + NonCurrentLiab;
 			return TotLiab;
 		}
 		
-		function StockhldrsEq("RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","AssetLiabDiffPlug","CumTranslAdj","UnrealizedGainLossMktSec") {
+		function StockhldrsEq(RedeemablePrefStock,AddPic,RetainedEarnings,Tstock,CommonEq,AssetLiabDiffPlug,CumTranslAdj,UnrealizedGainLossMktSec) {
 			{
-			function AssetLiabDiffPlug("TotAssets","TotLiab","RedeemablePrefStock","AddPic","RetainedEarnings","Tstock","CommonEq","CumTranslAdj","UnrealizedGainLossMktSec") {
+			function AssetLiabDiffPlug(TotAssets,TotLiab,RedeemablePrefStock,AddPic,RetainedEarnings,Tstock,CommonEq,CumTranslAdj,UnrealizedGainLossMktSec) {
 				var AssetLiabDiffPlug = TotAssets - TotLiab - RedeemablePrefStock - AddPic - RetainedEarnings - Tstock - CommonEq - CumTranslAdj - UnrealizedGainLossMktSec;
 				return AssetLiabDiffPlug;
 				}
@@ -163,18 +172,24 @@
 			return totalCashFinActivities;
 		}
 
-		function netChangeCash("totalCashOpActivities","totalCashInvActivities","totalCashFinActivities"); {
+		function netChangeCash(totalCashOpActivities,totalCashInvActivities,totalCashFinActivities) {
 			var netChangeCash = totalCashOpActivities + totalCashInvActivities + totalCashFinActivities;
 			return netChangeCash;
 		}
 		
-		function EBITDA("netIncome","InterestFx","taxes","DnA"); {
-			EBITDA = netIncome + InterestFx + taxes + DnA;
-			return EBITDA;
+		function EBITDA(netIncome[],InterestFx[],taxes[],DnA[]) {
+			var EBITDA = [];
+			for (var i = 0; i <netIncome.length; i++) {
+				EBITDA[i] = netIncome[i] + InterestFx[i] + taxes[i] + DnA[i];
+			}
+			EBITDAtoEV(EBITDA[],EV[]);
 		}
 		
-		function EBITDAtoEV("EBITDA","EV"); {
-			EBITDAtoEV = EBITDA/EV;
+		function EBITDAtoEV(EBITDA[],EV[]) {
+			var EBITDAtoEV = [];
+			for (var i = 0; i <EBITDA.length; i++) {
+				EBITDAtoEV[i] = EBITDA[i]/EV[i];
+			}
 			return EBITDAtoEV;
 		}
 
@@ -186,7 +201,6 @@
 		var RnD = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
 		var SnM = [0,0,0,0,0,0,0,0];
 		var OtherExp = [114.832,160.7648,208.99,250.79,275.87,303.46,333.81,367.186];
-
 
 		var CashEq = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
 		var AcctsRec = [3.599784,3.67177968,3.7452152736,3.820119579072,3.89652197065344,3.97445241006651,4.05394145826784,4.1350202874332];
@@ -236,39 +250,47 @@
 		var CumTranslAdj = [0,0,0,0,0,0,0,0,];
 		var UnrealizedGainLossMktSec = [0,0,0,0,0,0,0,0,];
 
+		var DnA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var Dep=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var AmortInt=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var SGnAGrowthRate=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15];
+		var RnDGrowthRate=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1];
+		var SGnAOtherGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var IntnFXGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var NonopIncomeExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var NonopIntIncome=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var OtherIncExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var IntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var GrossIntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var IntCapitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var FixedAssetsImpariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var UnusualExpInc=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var FinAssetsImpairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var ReorgRestructureExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var GoodwillWriteOff=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var LegalClaimExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var UnrealizedInvLossGain=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+		var OtherUnusualExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+
+		var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534];
+
+		function findDifferences(a[]) {
+			var differences = [];
+			for (var i = 0; i < a.length; i++) {
+				differences[i] = a[i-1] - a[i];
+			}
+			return differences;
+		}
+
+		function cashFromOperatingActivities(AcctsRec[], IncomeTaxesPayable[], prepaidExpenses[]) {
+			var decreaseInNotesAndAccountsReceivable = findDifferences(AcctsRec[]);
+			var changeInIncomeTaxes = findDifferences(IncomeTaxesPayable[]);
+			var increaseInPrepaidRev = findDifferences(prepaidExpenses[]);
+			//TODO add the rest
 
 
-		/*var localAds=[0.591627906976744, 0.407948568088837, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, ]
-		var brandAds=[0.152380952380952, 0.165289256198347, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var otherServices=[0.151898734177215, 0.285714285714286, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ] */
-		/*var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var =[0, 0, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, ]
-		var Cost of Revenue Growth Rates=[0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, ] */
-		var DnA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var Dep=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var AmortInt=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var SGnAGrowthRate=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, ]
-		var RnDGrowthRate=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1, ]
-		var SGnAOtherGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var IntnFXGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var NonopIncomeExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var NonopIntIncome=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var OtherIncExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var IntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var GrossIntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var IntCapitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var FixedAssetsImpariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var UnusualExpInc=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var FinAssetsImpairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var ReorgRestructureExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var GoodwillWriteOff=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var LegalClaimExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var UnrealizedInvLossGain=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-		var OtherUnusualExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, ]
-
-		var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534 ]
-
-
+			////////////////////
+		}
 
 
 
@@ -302,6 +324,20 @@
 		</form>
 	</div>
 	<p>Price target: $</p><p id="priceTarget"></p>
+
+	<td>
+    <input type="text" 
+        style="width: 60px; background: none repeat scroll 0% 0% rgb(255, 255, 255);" maxlength="4" 
+        class="unitprice" name="unitprice[]">
+	</td>
+	<td>
+    <input type="text" 
+        style="width: 60px; background: none repeat scroll 0% 0% rgb(255, 255, 255);"
+            maxlength="4" class="unitprice" name="unitprice[]">
+	</td>
+	<input id="world" type="submit" value="Go" onclick="alertElementId();" />
+
+	<div id="content">Hello <span></span></div>
 </body>
 
 
