@@ -71,7 +71,7 @@
 		}
 		
 		function FreeCashFlow2013(cashOpActivities, CapEx) {
-			var FreeCashFlow = cashOpActivities + CapEx;
+			var FreeCashFlow = cashOpActivities - CapEx;
 			return FreeCashFlow;
 		}
 		
@@ -286,10 +286,46 @@
 			var decreaseInNotesAndAccountsReceivable = findDifferences(AcctsRec[]);
 			var changeInIncomeTaxes = findDifferences(IncomeTaxesPayable[]);
 			var increaseInPrepaidRev = findDifferences(prepaidExpenses[]);
-			//TODO add the rest
+			var decreaseInv = findDifferences(Inv[]);
+			var decreaseOtherCurrentAssets = findDifferences(otherCurrAssets[]);
+			var increaseAP = findDifferences(AP[]);
+			var incOtherLiab = findDifferences(OtherCurrLiab[]);
+			var notesDiscounted = findDIfferences(notesDiscounted[]);
+			var increaseAccruedExp = findDifferences(AccExp[]);
+			var increaseAccruedRevShare = findDifferences(AccRev[]);
+			var increaseDefRevShare = findDifferences(deferredRev[]);
 
+		}
 
-			////////////////////
+		function cashFromInvestingActivities() {
+			var proceedsSaleTangAssets = findDifferences(proceedsSaleTangAssets[]);
+			var PurchaseIntAssets = findDifferences(ProceedsSaleIntAssets[]);
+			var ProceedsSaleIntAssets = findDifferences(ProceedsSaleIntAssets[]);
+			var InvSec = findDifferences(InvSec[]);
+			var salesRedemptInvSec = findDifferences(salesRedemptInvSec[]);
+			var PurchaseStocksSubAffil = findDifferences(PurchaseStocksSubAffil[]);
+			var proceedsLtNP = findDifferences(proceedsLtNP[]);
+			var PmtsLTloansRec = findDifferences(PmtsLTloansRec[]);
+			var CollectionsLTLoansRec = findDifferences(CollectionsLTLoansRec[]);
+			var DecSTLoansRec = findDifferences(DecSTLoansRec[]);
+			var ProceedsTransfBus = findDifferences(ProceedsTransfBus[]);
+			var PmtsTimeDeposit = findDifferences(PmtsTimeDeposit[]);
+
+		}
+
+		function cashFromFinancingActivities() {
+			var netIncreaseStLoansPayable = findDifferences(StDebt[]);
+			var proceedsLtNP = findDifferences(PmtsLTloansRec[]);
+			var repaymentLtNP = findDifferences(repaymentLtNP[]);
+			var proceedsSaleTStock = findDifferences(proceedsSaleTStock[]);
+			var repaymentsFinLeaseObl = findDifferences(repaymentsFinLeaseObl[]);
+			var proceedsIssueBonds = findDifferences(proceedsIssueBonds[]);
+			var proceedsStockOptions = findDifferences(proceedsStockOptions[]);
+			var redemptionBonds = findDifferences(redemptionBonds[]);
+			var EqRepurchases = findDifferences(EqRepurchases[]);
+			var CashDivPaid = findDifferences(CashDivPaid[]);
+			var proceedsfromStockIssuancetoMinoritySh = findDifferences(proceedsfromStockIssuancetoMinoritySh[]);
+
 		}
 
 
