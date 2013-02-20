@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="fin-functions.js"></script>
 		<style type="text/css">
 			body {
 				font: 10px sans-serif;
 			}
-
 			.axis path,
 			.axis line {
 				fill: none;
@@ -32,7 +32,6 @@
 	<body>
 		<div id="graph"></div>
 		<div align="center">
-			<div id="table">
 				<h1>Growth Rates</h1>
 				<form>
 					Revenue<input class="fields" id="revenue" type="float" />
@@ -49,12 +48,11 @@
 						var capEx = parseFloat(document.getElementById("capEx").value);
 						var rND = parseFloat(document.getElementById("rND").value);
 						
-						var sum = revenue + asset + capEx + rND;
+						var sum = sumValues(revenue, asset, capEx, rND);
 						$("span").text(sum).show();
 						return false;
 					});
 				</script>
-			</div>
 		</div>
 		<script type="text/javascript">
 			var margin = {top: 20, right: 20, bottom: 30, left: 50},
