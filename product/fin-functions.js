@@ -3,16 +3,49 @@
 		return total;
 	}
 
-	function findPriceTarget(valueOne, valueTwo) {
-		var priceTarget = valueOne / valueTwo;
-		return priceTarget;
+
+	function DCF(FreeCashFlow, WACC, Years) {
+		var WACC = .115;
+		var DCF = FreeCashFlow/(1+WACC)^years;
+		return DCF;
 	}
 
+	/*
+	function SumDCF(freeCashFlows[]) {
+		var TotSumDiscountedCashFlows = 0;
+		//visit every freeCashFlow
+		for (var i = 0; i< freeCashFlows.length; i++) {
+			//compute DCF for each FCF
+			var DCF = DCF(freeCashFlows[i], WACC, i+1);
+			TotSumDiscountedCashFlows += DCF;
+		}
+		return TotSumDiscountedCashFlows;
+	}
+	*/
+
+	function findFreeCashFlow (cashOpActivities, capEx) {
+		var freeCashFlow = cashOpActivities - capEx;
+		return freeCashFlow;
+	}
+
+	var WACC = .115;
+	var terminalGrowthRate = .003;
+	function findTermValue(freeCashFlow, WACC, termGrowthRate) {
+		var TermVal = (freeCashFlow * (1+termGrowthRate)) / (WACC - termGrowthRate);
+		return TermVal;
+	}
+
+	//need to double check this function
 	function findEV(TotSumDiscountedCashFlows,TermVal,CashEq,TotDebt) {
 		var EV = TotSumDiscountedCashFlows + TermVal - CashEq + TotDebt;
 		return EV;
 	}
 
+	//var sharesOut = weightedShares(i-1) * (1 + % YoY Growth)
+	function findPriceTarget(EV, sharesOut) {
+		var priceTarget = EV / sharesOut;
+		return priceTarget;
+	}
 	/*
 
 	var totalUnitPrice = 0;
