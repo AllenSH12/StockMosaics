@@ -16,9 +16,10 @@
 	}
 	*/
 
+	/*
 	function findPriceTarget(revenue, asset, capEx, rND) {
-		
-		
+
+
 		//get all operating cash Flows
 		var cashFromOperatingActivities = sumFCF(operatingCashFlows[]);
 		//capEx should be an array??
