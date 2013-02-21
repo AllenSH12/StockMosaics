@@ -34,27 +34,27 @@
 	<body>
 		<div id="graph"></div>
 		<div align="center">
-				<h1>Growth Rates</h1>
-				<form>
-					Revenue<input class="fields" id="revenue" type="float" />
-					Asset<input class="fields" id="asset" type="float" /><br>
-					CapEx<input class="fields" id="capEx" type="float" />
-					R&D<input class="fields" id="rND" type="float" /><br>
-					<input type="submit" />
-				</form>
-				<h2>Price target: $<span>______</span></h2>
-				<script type="text/javascript">
-					$("form").submit(function() {
-						var revenue = parseFloat(document.getElementById("revenue").value);
-						var asset = parseFloat(document.getElementById("asset").value);
-						var capEx = parseFloat(document.getElementById("capEx").value);
-						var rND = parseFloat(document.getElementById("rND").value);
-						
-						var sum = sumValues(revenue, asset, capEx, rND);
-						$("span").text(sum).show();
-						return false;
-					});
-				</script>
+			<h1>Growth Rates</h1>
+			<form>
+				Revenue<input class="fields" id="revenue" type="float" />
+				Asset<input class="fields" id="asset" type="float" /><br>
+				CapEx<input class="fields" id="capEx" type="float" />
+				R&D<input class="fields" id="rND" type="float" /><br>
+				<input type="submit" />
+			</form>
+			<h2>Price target: $<span>______</span></h2>
+			<script type="text/javascript">
+				$("form").submit(function() {
+					var revenue = parseFloat(document.getElementById("revenue").value);
+					var asset = parseFloat(document.getElementById("asset").value);
+					var capEx = parseFloat(document.getElementById("capEx").value);
+					var rND = parseFloat(document.getElementById("rND").value);
+					
+					var sum = sumValues(revenue, asset, capEx, rND);
+					$("span").text(sum).show();
+					return false;
+				});
+			</script>
 		</div>
 		<script type="text/javascript">
 			var margin = {top: 20, right: 20, bottom: 30, left: 50},

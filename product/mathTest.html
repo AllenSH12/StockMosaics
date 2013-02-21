@@ -7,21 +7,26 @@
 
 	<body>
 		<script type="text/javascript">
-			var data = new Array(5,3,4,3,2,1)
 			var dataTwo = [[3,2,1],[3,2,1]];
-			var doubleData = []
-			for (var i = 0; i<data.length; i++) {
-				doubleData[i] = data[i] * 2;
+			var totals = [dataTwo[0].length];
+			for (var i = 0; i <dataTwo[0].length; i++) {
+				totals [i] = 0;
 			}
-			var totals = [0,0,0];
 			for (var i = 0; i<dataTwo.length; i++) {
 				for (var j = 0; j<dataTwo[i].length; j++) {
 					totals[j] += dataTwo[i][j];
 				}
 			}
-
+			function addToTotal(array[]) {
+				var total = [array.length];
+				for (var i=0; i < total.length; i++) {
+					total[i] = 0;
+				}
+				for (var i=0; i<array.length; i++) {
+					total[i] += array[i];
+				}
+			}
 			document.writeln(totals)
-			document.writeln(doubleData)
 		</script>
 
 	</body>
