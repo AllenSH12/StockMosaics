@@ -3,13 +3,6 @@
 		return total;
 	}
 
-
-	function DCF(FreeCashFlow, WACC, Years) {
-		var WACC = .115;
-		var DCF = FreeCashFlow/(1+WACC)^years;
-		return DCF;
-	}
-
 	/*
 	function SumDCF(freeCashFlows[]) {
 		var TotSumDiscountedCashFlows = 0;
@@ -23,29 +16,28 @@
 	}
 	*/
 
-	function findFreeCashFlow (cashOpActivities, capEx) {
-		var freeCashFlow = cashOpActivities - capEx;
-		return freeCashFlow;
-	}
+	function findPriceTarget(revenue, asset, capEx, rND) {
+		
+		
+		//get all operating cash Flows
+		var cashFromOperatingActivities = sumFCF(operatingCashFlows[]);
+		//capEx should be an array??
+		var capEx = 1;
+		var freeCashFlow = cashFromOperatingActivities - capEx;
 
-	var WACC = .115;
-	var terminalGrowthRate = .003;
-	function findTermValue(freeCashFlow, WACC, termGrowthRate) {
-		var TermVal = (freeCashFlow * (1+termGrowthRate)) / (WACC - termGrowthRate);
-		return TermVal;
-	}
+		var WACC = .115;
+		var terminalGrowthRate = .003;
+		var TermVal = (freeCashFlow * (1 + terminalGrowthRate)) / (WACC - terminalGrowthRate);
 
-	//need to double check this function
-	function findEV(TotSumDiscountedCashFlows,TermVal,CashEq,TotDebt) {
+		//get years
+		var DCF = freeCashFlow/Math.pow(1+WACC,years);
+
+		//get cashEq and TotDebt
 		var EV = TotSumDiscountedCashFlows + TermVal - CashEq + TotDebt;
-		return EV;
-	}
-
-	//var sharesOut = weightedShares(i-1) * (1 + % YoY Growth)
-	function findPriceTarget(EV, sharesOut) {
 		var priceTarget = EV / sharesOut;
 		return priceTarget;
 	}
+
 	/*
 
 	var totalUnitPrice = 0;

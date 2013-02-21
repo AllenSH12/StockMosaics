@@ -1,5 +1,10 @@
-<script src="jquery.csv-0.71.min.js"></script>
+function SumFCF(operatingCashFlows[]) {
+	var cashProvidedFromOperatingActivities = [];
+	return operatingCashFlows.forEach(addRowToTotal);
+}
 
-function getCashFlows() {
-	var cashFlows = $.csv.toArrays("data.csv");
+function addRowToTotal(row[]) {
+	var total = [];
+	row.forEach(function(total[index] += row[index]));
+	return total;
 }
