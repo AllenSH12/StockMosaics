@@ -16,10 +16,15 @@
 	}
 	*/
 
-	function findPriceTarget(revenue, asset, capEx, rND) {
+	//function findPriceTarget(revenue, asset, capEx, rND) {
 		var localAds = [171.1,240.9,321.3,389,1412,425,438];
 		var brandAds = [24.2,28.2,34.1,38.9,140.47156,41.28,42.1];
 		var otherServices = [9.1,11.7,12,14,114.5656,14.85,15.15];
+		var rND = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
+		var sNM = [0,0,0,0,0,0,0,0];
+		var otherExp = [114.832,160.7648,208.99,250.79,275.87,303.46,333.81,367.186];
+		var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534];
+		var dNA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
 		var cashFlows = [[ 53.47524, 71.380386, 80.0797893, 80.795538285, 59.68186900725, 35.5514036464125, 8.07550901641308],
 							[ 0, 0, 0, 0, 0, 0, 0],
 							[ -2.60944, -3.465216, -3.8827808, -3.92033696, -2.918570656, -1.7733297216, -0.468974073759998],
@@ -81,6 +86,7 @@
 			for (var i = 0; i < positions; i++) {
 				array[i] = value;
 			}
+			return array;
 		}
 
 		function findDifferences(arrayOne, arrayTwo) {
@@ -99,14 +105,34 @@
 			return total;
 		}
 		/////////////////////////END NON FINANCIAL HELPER FUNCTIONS ///////////////////////
+		var years = 7;
+
 		var revenues = [localAds, brandAds, otherServices];
 		var grossProfit = sumColumnsOfArrays(revenues);
+		var ebit = [];
+		var interestFX = [];
+		var ebt = [];
+		var netIncome = [];
+		var ebitda = [];	
+		for (var i = 0; i < years; i++) {
+			ebit[i] = grossProfit[i] - rND[i] - sNM[i] - otherExp[i];
+			interestFX[i] = ebit[i] * grossProfit[i]
+			ebt[i] = ebit[i] - interestFX[i];
+			netIncome[i] = ebt[i] - taxes[i];
+			ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
+			
+		}
+		//TODO: continue on from EBT, copy data from bottom to the top as you need it.
 
 
+
+
+		//you can also work backwards from here if you'd rather do that.
 		//get all operating cash Flows
 		var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
 		var capEx = []
 		capEx = fillArray(capEx, 1, years)
+		/*
 		var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
 
 		var wacc = .115;
@@ -127,7 +153,7 @@
 			ev[i] = dcf[i] + termVal[i] - cashEq[i] + totalDebt[i];
 			priceTarget[i] = ev[i] / sharesOut[i];
 		}
-	}
+	//}
 
 	/*
 
@@ -136,14 +162,6 @@
 	    totalUnitPrice += parseInt($(this).val());
 	    // parse the value to an Integer (otherwise it'll be concatenated as string) or use parseFloat for decimals
 	});
-	
-	function EBIT(grossProfit[],RnD[],SnM[],OtherExp[])  {
-		var EBIT = [];
-		for (var i = 0; i < grossProfit.length; i++) {
-			EBIT[i] = grossProfit[i] - RnD[i] - SnM[i] - OtherExp[i];
-		}
-		EBT(EBIT[],InterestFx[]);
-	}
 	
 	function EBT(EBIT[],InterestFx[]) {
 		var EBT = [];
