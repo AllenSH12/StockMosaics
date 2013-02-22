@@ -16,27 +16,117 @@
 	}
 	*/
 
-	/*
 	function findPriceTarget(revenue, asset, capEx, rND) {
+		var localAds = [171.1,240.9,321.3,389,1412,425,438];
+		var brandAds = [24.2,28.2,34.1,38.9,140.47156,41.28,42.1];
+		var otherServices = [9.1,11.7,12,14,114.5656,14.85,15.15];
+		var cashFlows = [[ 53.47524, 71.380386, 80.0797893, 80.795538285, 59.68186900725, 35.5514036464125, 8.07550901641308],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ -2.60944, -3.465216, -3.8827808, -3.92033696, -2.918570656, -1.7733297216, -0.468974073759998],
+							[ 1.02, 1.0404, 1.061208, 1.07182008, 1.0825382808, 1.093363663608, 1.10429730024408],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ -0.0705840000000002, -0.0719956800000001, -0.0734355936000002, -0.0749043054720002, -0.07640239158144, -0.0779304394130689, -0.0794890482013302],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ -0.00204, -0.00208080000000001, -0.002122416, -0.00216486432, -0.0022081616064, -0.002252324838528, -0.00229737133529856],
+							[ -0.00244800000000001, -0.00249696000000001, -0.00254689920000001, -0.002597837184, -0.00264979392768, -0.00270278980623359, -0.00275684560235828],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ -0.1255, -0.131775, -0.13836375, -0.1452819375, -0.152546034375, -0.16017333609375, -0.168182002898438],
+							[ 0, 0, 0, 0, 0, 0, 0],
+							[ 0, 0, 0, 0, 0, 0, 0]];
+
+		//////////////////////////// NON FINANCIAL HELPER FUNCTIONS ///////////////////////					
+
+		function sumColumnsOfArrays(array) {
+				var total = [];
+				for (var i=0; i < array[0].length; i++) {
+					total[i] = 0;
+				}
+				for (var i=0; i < array.length; i++) {
+					for (var j=0; j < array[0].length; j++) {
+						total[j] += array[i][j];
+					}
+				}
+				return total;
+			}
+
+		function fillArray(array, value, positions) {
+			//blank array
+			array = [];
+			for (var i = 0; i < positions; i++) {
+				array[i] = value;
+			}
+		}
+
+		function findDifferences(arrayOne, arrayTwo) {
+			var diffs = [];
+			for (var i = 0; i < arrayOne.length; i++) {
+				diffs[i] = arrayOne[i] - arrayTwo[i];
+			}
+			return diffs;
+		}
+
+		function findSumOfArray(array) {
+			var total = 0;
+			for (var i = 0; i < array.length; i++) {
+				total += array[i];
+			}
+			return total;
+		}
+		/////////////////////////END NON FINANCIAL HELPER FUNCTIONS ///////////////////////
+		var revenues = [localAds, brandAds, otherServices];
+		var grossProfit = sumColumnsOfArrays(revenues);
 
 
 		//get all operating cash Flows
-		var cashFromOperatingActivities = sumFCF(operatingCashFlows[]);
-		//capEx should be an array??
-		var capEx = 1;
-		var freeCashFlow = cashFromOperatingActivities - capEx;
+		var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
+		var capEx = []
+		capEx = fillArray(capEx, 1, years)
+		var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
 
-		var WACC = .115;
+		var wacc = .115;
 		var terminalGrowthRate = .003;
-		var TermVal = (freeCashFlow * (1 + terminalGrowthRate)) / (WACC - terminalGrowthRate);
+		var termVal = [];
+		var dcf = [];
+		for (var i = 0; i < freeCashFlow.length; i++) {
+			termVal[i] = (freeCashFlow[i] * (1 + terminalGrowthRate)) / (wacc - terminalGrowthRate);
+			dcf[i] = freeCashFlow[i]/Math.pow(1+wacc,i);
+		}
 
-		//get years
-		var DCF = freeCashFlow/Math.pow(1+WACC,years);
+		var totalSumOfDiscountedCashFlows = findSumOfArray(dcf);
 
-		//get cashEq and TotDebt
-		var EV = TotSumDiscountedCashFlows + TermVal - CashEq + TotDebt;
-		var priceTarget = EV / sharesOut;
-		return priceTarget;
+		//get cashEq and totalDebt
+		var ev = [];
+		var priceTarget = [];
+		for (var i = 0; i < dcf.length; i++) {
+			ev[i] = dcf[i] + termVal[i] - cashEq[i] + totalDebt[i];
+			priceTarget[i] = ev[i] / sharesOut[i];
+		}
 	}
 
 	/*
@@ -46,32 +136,6 @@
 	    totalUnitPrice += parseInt($(this).val());
 	    // parse the value to an Integer (otherwise it'll be concatenated as string) or use parseFloat for decimals
 	});
-
-	function sumRows(array[]) {
-		var totals = [];
-		for (var i = 0; i < array.length; i ++) {
-			for (var j = 0; j < array[i].length; j++) {
-				totals[i] += array[i][j];
-				alert(totals[i]);
-			}
-		}
-		return totals[];
-	}
-	
-	function totalRevenue(localAds[],brandAds[],otherServices[]) {
-		var placeholder = [localAds[],brandAds[],otherServices[]];
-		var totals[] = sumRows(placeholder);
-		grossProfit(totals[], cogsInclDnA[]);
-	}
-
-	function grossProfit(totRev[],cogsInclDnA[]) {
-		var grossProfits = [];
-		for (var i = 0; i < totRev.length; i++) {
-			//gross profit for year i equals total revenue for year i less COGS for year i
-			grossProfits[i] = totRev[i] - cogsInclDnA[i];
-		}
-		EBIT(grossProfits[], RnD[], SnM[], OtherExp[]);
-	}
 	
 	function EBIT(grossProfit[],RnD[],SnM[],OtherExp[])  {
 		var EBIT = [];
