@@ -5,8 +5,6 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="jquery.csv-0.71.min.js"></script>
-		
-		<script src="calculateCashFlows.js"></script>
 		<style type="text/css">
 			body {
 				font: 10px sans-serif;
@@ -27,6 +25,11 @@
 			}
 			form {
 				font-size: 14px;
+			}
+			.line {
+				fill: none;
+				stroke: steelblue;
+				stroke-width: 1.5px;
 			}
 		</style>
 	</head>
@@ -58,6 +61,8 @@
 			</script>
 		</div>
 		<script src="priceTargetGraph.js"></script>
+		<div id="sparkOne"></div>
+		<script src="sparkLines.js"></script>
 	</body>
 
 <html>
