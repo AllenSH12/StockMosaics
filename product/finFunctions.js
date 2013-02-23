@@ -120,8 +120,17 @@
 			ebt[i] = ebit[i] - interestFX[i];
 			netIncome[i] = ebt[i] - taxes[i];
 			ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
-			
 		}
+		var currentAssets = sumColumnsOfArrays(cashEq,acctsRec,stInv,mktSec,inv,defTaxAssets,prepaidExp,accExp,otherCurrAssets);
+		var longTermAssets = sumColumnsOfArrays(tangibleAssets,bldsStructures,machineryEq,furnitureEq,land,accDep,intangAssets,Software,Goodwill,OtherNetInt,InvAndOtherAssets,InvSec,OtherRec,OtherAssets,DefTaxAssets,LongTimeDeposit,OtherLTAssets,Allowance);
+		var totAssets = sumColumnsOfArrays (totAssets);
+		var currentLiabilities = sumColumnsOfArrays(stNP,stDebt,stBorrowing,currentInstLTDebt,bondsDue,aP,accExp,itaxPay,allowProd,divPay,otherCurrLiab);
+		var NonCurrentLiab = sumColumnsOfArrays(LtDebt,Bond,bondWarrant,LtBorrow,DefTaxLiab,ProvRiskCharge,RetirementSevBenef,OtherNonCurrLiab);
+		var totLiab = sumColumnsOfArrays(totLiab);
+		var StockhldrsEq = sumColumnsOfArrays(RedeemablePrefStock,AddPic,RetainedEarnings,Tstock,CommonEq,AssetLiabDiffPlug,CumTranslAdj,UnrealizedGainLossMktSec);
+		
+		var cashInvActivities = sumColumnsOfArrays(cashInvActivities);
+		var cashFinActivities = sumColumnsOfArrays(cashFinActivities);
 		//TODO: continue on from EBT, copy data from bottom to the top as you need it.
 
 
@@ -132,7 +141,7 @@
 		var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
 		var capEx = []
 		capEx = fillArray(capEx, 1, years)
-		/*
+		
 		var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
 
 		var wacc = .115;
