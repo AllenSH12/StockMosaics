@@ -1,7 +1,4 @@
-	function sumValues(a,b,c,d) {
-		var total = a + b + c + d;
-		return total;
-	}
+
 	var cashFlows = [[ 56,73,98,109,89,67,42,13],
 						[ 0, 0, 0, 0, 0, 0, 0, 0],
 						[ -2.6,-4,-5,-5,-5,-5,-3,-2],
@@ -42,12 +39,12 @@
 						[ 0, 0, 0, 0, 0, 0, 0, 0],
 						[ 0, 0, 0, 0, 0, 0, 0, 0]];
 
-	var localAds = [171.1,240.9,321.3,389,412,425,438];
-	var brandAds = [24.2,28.2,34.1,38.9,40.47156,41.28,42.1];
-	var otherServices = [9.1,11.7,12,14,14.5656,14.85,15.15];
+	var localAds = [171.1,240.9,321.3,389, 401,412,425,438];
+	var brandAds = [24.2,28.2,34.1,38.9, 40.47,40,41.28,42.1];
+	var otherServices = [9.1,11.7,12,14, 14.56,14.85,15,15];
 	var cogsInclDnA = [14,20,25,40,43,46,49,52];
-	var rnD = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
-	var snM = [0,0,0,0,0,0,0,0];
+	var rND = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
+	var sNM = [0,0,0,0,0,0,0,0];
 	var otherExp = [114.832,160.7648,208.99,250.79,275.87,303.46,333.81,367.186];
 	var interestRate = [.05,.05,.05,.05,.05,.05,.05,.05];
 
@@ -109,7 +106,7 @@
 	var cumTranslAdj = [0,0,0,0,0,0,0,0];
 	var unrealizedGainLossMktSec = [0,0,0,0,0,0,0,0];
 
-	var dnA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+	var dNA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
 	var dep=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
 	var amortInt=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
 	var sGnAGrowthRate=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15];
@@ -135,7 +132,76 @@
 
 	var sharesOut = [34.2,34.61,35.03,35.45,35.87,36.30,36.74,37.18];
 
+	//function findPriceTargets(a, b, c, d) {
+
+
+		var years = 8;
+		
+		var revenues = [localAds, brandAds, otherServices];
+		var grossProfit = sumColumnsOfArrays(revenues);
+		var ebit = [];
+		var interestFX = [];
+		var ebt = [];
+		var netIncome = [];
+		var ebitda = [];
+
+		for (var i = 0; i < years; i++) {
+			ebit[i] = grossProfit[i] - rND[i] - sNM[i] - otherExp[i];
+			interestFX[i] = ebit[i] * (-1*interestRate[i]);
+			ebt[i] = ebit[i] - interestFX[i];
+			netIncome[i] = ebt[i] - taxes[i];
+			ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
+		}
+
+		var currentAssets = sumColumnsOfArrays([cashEq,acctsRec,stInv,mktSec,inv,defTaxAssets,prepaidExp,accRev,otherCurrAssets]);
+		var longTermAssets = sumColumnsOfArrays([tangibleAssets,bldsStructures,machineryEq,furnitureEq,land,accDep,intangAssets,software,goodwill,otherNetInt,invAndOtherAssets,invSec,otherRec,longTimeDeposit,otherLTAssets,allowance]);
+		var totAssets = sumColumnsOfArrays ([currentAssets,longTermAssets]);
+		var currentLiabilities = sumColumnsOfArrays([stNP,stDebt,stBorrowing,currentInstLTDebt,bondsDue,aP,accExp,itaxPay,allowProd,divPay,otherCurrLiab]);
+		var nonCurrentLiab = sumColumnsOfArrays([ltDebt,bond,bondWarrant,ltBorrow,defTaxLiab,provRiskCharge,retirementSevBenef,otherNonCurrLiab]);
+		var totLiab = sumColumnsOfArrays([currentLiabilities, nonCurrentLiab]);
+		var stockhldrsEq = sumColumnsOfArrays([redeemablePrefStock,addPic,retainedEarnings,tStock,commonEq,assetLiabDiffPlug,cumTranslAdj,unrealizedGainLossMktSec]);
+		
+		var totalCashInvActivities = [0,0,0,0,0,0,0,0];
+		var totalCashFinActivities = [0,0,0,0,0,0,0,0];
+
+		var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
+
+		var capEx = []
+		capEx = fillArray(capEx, 1, years)
+		
+		var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
+
+		var wacc = .115;
+		var terminalGrowthRate = .003;
+		var netChangeCash = [];
+		var termVal = [];
+		var dcf = [];
+
+		for (var i = 0; i < years; i++) {
+			netChangeCash[i] = cashFromOperatingActivities[i] + totalCashInvActivities[i] + totalCashFinActivities[i];
+			termVal[i] = (freeCashFlow[i] * (1 + terminalGrowthRate)) / (wacc - terminalGrowthRate);
+			dcf[i] = freeCashFlow[i]/Math.pow(1+wacc,i);
+		}
+		
+		var totalSumOfDiscountedCashFlows = findSumOfArray(dcf);
+
+		//get cashEq and totalDebt
+		var ev = [];
+		var priceTarget = [];
+
+		for (var i = 0; i < dcf.length; i++) {
+			ev[i] = dcf[i] + termVal[i];
+			priceTarget[i] = ev[i] / sharesOut[i];
+		}
+		//return priceTarget;
+	//}
+
+
 	//////////////////////////// NON FINANCIAL HELPER FUNCTIONS ///////////////////////					
+	function sumValues(a,b,c,d) {
+		var total = a + b + c + d;
+		return total;
+	}
 
 	function sumColumnsOfArrays(array) {
 			var total = [];
@@ -174,69 +240,10 @@
 		}
 		return total;
 	}
-	/////////////////////////END NON FINANCIAL HELPER FUNCTIONS ///////////////////////
 
-	
-	var years = 8;
-
-	var revenues = [localAds, brandAds, otherServices];
-	var grossProfit = sumColumnsOfArrays(revenues);
-	var ebit = [];
-	var interestFX = [];
-	var ebt = [];
-	var netIncome = [];
-	var ebitda = [];
-
-	for (var i = 0; i < years; i++) {
-		ebit[i] = grossProfit[i] - rND[i] - sNM[i] - otherExp[i];
-		interestFX[i] = ebit[i] * (-1*interestRate[i]);
-		ebt[i] = ebit[i] - interestFX[i];
-		netIncome[i] = ebt[i] - taxes[i];
-		ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
+	function adjustData(data,float) {
+		for (var i=0; i<data.length; i++) {
+			data[i] = data[i] * (1+float);
+		}
 	}
-
-	
-	var currentAssets = sumColumnsOfArrays([cashEq,acctsRec,stInv,mktSec,inv,defTaxAssets,prepaidExp,accRev,otherCurrAssets]);
-	var longTermAssets = sumColumnsOfArrays([tangibleAssets,bldsStructures,machineryEq,furnitureEq,land,accDep,intangAssets,software,goodwill,otherNetInt,invAndOtherAssets,invSec,otherRec,longTimeDeposit,otherLTAssets,allowance]);
-	var totAssets = sumColumnsOfArrays ([currentAssets,longTermAssets]);
-	var currentLiabilities = sumColumnsOfArrays([stNP,stDebt,stBorrowing,currentInstLTDebt,bondsDue,aP,accExp,itaxPay,allowProd,divPay,otherCurrLiab]);
-	var nonCurrentLiab = sumColumnsOfArrays([ltDebt,bond,bondWarrant,ltBorrow,defTaxLiab,provRiskCharge,retirementSevBenef,otherNonCurrLiab]);
-	var totLiab = sumColumnsOfArrays([currentLiabilities, nonCurrentLiab]);
-	var stockhldrsEq = sumColumnsOfArrays([redeemablePrefStock,addPic,retainedEarnings,tStock,commonEq,assetLiabDiffPlug,cumTranslAdj,unrealizedGainLossMktSec]);
-	
-
-
-	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
-	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
-
-	var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
-
-	var capEx = []
-	capEx = fillArray(capEx, 1, years)
-	
-	var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
-
-	var wacc = .115;
-	var terminalGrowthRate = .003;
-	var netChangeCash = [];
-	var termVal = [];
-	var dcf = [];
-
-	
-	for (var i = 0; i < freeCashFlow.length; i++) {
-		netChangeCash[i] = cashFromOperatingActivities[i] + totalCashInvActivities[i] + totalCashFinActivities[i];
-		termVal[i] = (freeCashFlow[i] * (1 + terminalGrowthRate)) / (wacc - terminalGrowthRate);
-		dcf[i] = freeCashFlow[i]/Math.pow(1+wacc,i);
-	}
-	
-	var totalSumOfDiscountedCashFlows = findSumOfArray(dcf);
-
-	//get cashEq and totalDebt
-	var ev = [];
-	var priceTarget = [];
-
-	for (var i = 0; i < dcf.length; i++) {
-		ev[i] = dcf[i] + termVal[i];
-		priceTarget[i] = ev[i] / sharesOut[i];
-	}
-	
+/////////////////////////END NON FINANCIAL HELPER FUNCTIONS ///////////////////////

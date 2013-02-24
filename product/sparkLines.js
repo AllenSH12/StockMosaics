@@ -1,36 +1,46 @@
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-widthTwo = 265 - margin.left - margin.right,
-heightTwo = 200 - margin.top - margin.bottom;
+function addSparkLine(location, importedData) {
+	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+	width = 265 - margin.left - margin.right,
+	height = 100 - margin.top - margin.bottom;
 
-var parseDate = d3.time.format("%d-%b-%y").parse;
+	var parseDate = d3.time.format("%d-%b-%y").parse;
 
-var xTwo = d3.time.scale()
-.range([0, widthTwo]);
+	var x = d3.time.scale()
+	.range([0, width]);
 
-var yTwo = d3.scale.linear()
-.range([heightTwo, 0]);
+	var y = d3.scale.linear()
+	.range([height, 0]);
 
-var line = d3.svg.line()
-	.x(function(d) { return xTwo(d.date); })
-	.y(function(d) { return yTwo(d.close); });
+	var line = d3.svg.line()
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return y(d.close); });
 
-var svgTwo = d3.select(document.getElementById("sparkOne")).append("svg")
-	.attr("width", widthTwo + margin.left + margin.right)
-	.attr("height", heightTwo + margin.top + margin.bottom)
-	.append("g")
-	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	var svg = d3.select(document.getElementById(location)).append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("dataSpark.tsv", function(error, data) {
-	data.forEach(function(d) {
-	d.date = parseDate(d.date);
-	d.close = +d.close;
-});
+	d3.tsv(importedData, function(error, data) {
+		data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
 
-xTwo.domain(d3.extent(data, function(d) { return d.date; }));
-yTwo.domain(d3.extent(data, function(d) { return d.close; }));
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	y.domain(d3.extent(data, function(d) { return d.close; }));
 
-svgTwo.append("path")
+	svg.append("path")
 	.datum(data)
 	.attr("class", "line")
 	.attr("d", line);
-});
+	});
+
+	var aspect = 265 / 100,
+	chart = $("#sparkOne");
+	$(window).on("resize", function() {
+		var targetWidth = chart.parent().width();
+		chart.attr("width", targetWidth);
+		chart.attr("height", targetWidth / aspect);
+	});	
+}

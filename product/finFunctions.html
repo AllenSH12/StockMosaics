@@ -11,11 +11,22 @@
 		<script type="text/javascript">
 			//you can print values from the model here!
 			$.getScript("finFunctions.js", function() {
-				document.writeln(priceTarget)
+				adjustData(grossProfit,.5)
+				adjustData(totAssets,.5)
+				adjustData(capEx,.5);
+				adjustData(rND,.5)
+				//var a = [grossProfit, .5]
+				//var b = [totAssets, .5]
+				//var c = [capEx, .5]
+				//var d = [rND, .5]
+				//var pTargets = findPriceTargets(a,b,c,d)
+				document.writeln(localAds + "<br/><br/>")
+				document.writeln(brandAds + "<br/><br/>")
+				document.writeln(otherServices + "<br/><br/>")
+
+				document.writeln(grossProfit + "<br/>")
+				document.writeln(ebit + "<br/>")
 			});
 		</script>
-
-
-
 	</body>
 </html>

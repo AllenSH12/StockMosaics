@@ -2,9 +2,26 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<title>Stock Mosaics</title>
+
+		<!--cssgrid-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../cssgrid/css/1140.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../cssgrid/css/styles.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="../cssgrid/js/css3-mediaqueries.js"></script>
+
+		<!--jQuery-->
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="jquery.csv-0.71.min.js"></script>
+
+		<!--D3.js-->
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<!--Spark Lines-->
+		<script src="sparkLines.js"></script>
+
+		<!--model-->
+		<script src="finFunctions.js"></script>
+
 		<style type="text/css">
 			body {
 				font: 10px sans-serif;
@@ -19,10 +36,6 @@
 			.area {
 				fill: steelblue;
 			}
-			.fields {
-				display: inline-block;
-				margin:8px;
-			}
 			form {
 				font-size: 14px;
 			}
@@ -31,21 +44,66 @@
 				stroke: steelblue;
 				stroke-width: 1.5px;
 			}
+			#input p {
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	
 	<body>
-		<div id="graph"></div>
-		<div align="center">
-			<h1>Growth Rates</h1>
-			<form>
-				Revenue<input class="fields" id="revenue" type="float" />
-				Asset<input class="fields" id="asset" type="float" /><br>
-				CapEx<input class="fields" id="capEx" type="float" />
-				R&D<input class="fields" id="rND" type="float" /><br>
-				<input type="submit" />
-			</form>
-			<h2>Price target: $<span>______</span></h2>
+		<div class="container">
+			<div class="row">
+				<div class="twelvecol">
+					<h1 align="center">YELP</h1>
+					<svg id="graph" width="1140" height="500" viewbox="0 0 1140 500" preserveAspectRatio="xMidYMid">
+					</svg>
+				</div>
+			</div>
+			<div class="row">
+				<h1>Future Growth Rates:</h1>
+			</div>
+			<div class="row" id="input">
+				<div class="twocol"></div>
+				<div class="twocol">
+					<form>
+					<p>Revenue</p><input class="fields" id="revenue" type="float"/>
+				</div>
+				<div class="twocol">
+					<p>Asset</p><input class="fields" id="asset" type="float" />
+				</div>
+				<div class="twocol">
+					<p>CapEx</p><input class="fields" id="capEx" type="float" />
+				</div>
+				<div class="twocol">
+					<p>R&D</p><input class="fields" id="rND" type="float" /><br>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="threecol"></div>
+				<div class="sixcol" align="center	">
+					<input type="submit" />
+					<h2>Price target: $<span>______</span></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="threecol">
+					<svg id="sparkOne" width="265" height="200" viewbox="0 0 265 200" preserveAspectRatio="xMidYMid">
+					</svg>
+				</div>
+				<div class="threecol">
+					<svg id="sparkTwo" width="265" height="200" viewbox="0 0 265 200" preserveAspectRatio="xMidYMid">
+					</svg>
+				</div>
+				<div class="threecol">
+					<svg id="sparkThree" width="265" height="200" viewbox="0 0 265 200" preserveAspectRatio="xMidYMid">
+					</svg>
+				</div>
+				<div class="twocol">
+					<svg id="sparkFour" width="265" height="200" viewbox="0 0 265 200" preserveAspectRatio="xMidYMid">
+					</svg>
+				</div>
+			</div>
 			<script type="text/javascript">
 				$("form").submit(function() {
 					var revenue = parseFloat(document.getElementById("revenue").value);
@@ -53,16 +111,19 @@
 					var capEx = parseFloat(document.getElementById("capEx").value);
 					var rND = parseFloat(document.getElementById("rND").value);
 					
-					//var sum = sumValues(revenue, asset, capEx, rND);
-					var sum = revenue + asset + capEx + rND;
+					var sum = sumValues(revenue, asset, capEx, rND);
 					$("span").text(sum).show();
 					return false;
 				});
 			</script>
+			<script src="priceTargetGraph.js"></script>
+			<script type="text/javascript">
+				addSparkLine("sparkOne","data/sparkOne.tsv")
+				addSparkLine("sparkTwo","data/sparkTwo.tsv")
+				addSparkLine("sparkThree","data/sparkThree.tsv")
+				addSparkLine("sparkFour","data/sparkFour.tsv")
+			</script>
 		</div>
-		<script src="priceTargetGraph.js"></script>
-		<div id="sparkOne"></div>
-		<script src="sparkLines.js"></script>
 	</body>
 
 <html>
