@@ -81,7 +81,7 @@ var currentInstLTDebt = [0,0,0,0,0,0,0,0];
 var bondsDue = [0,0,0,0,0,0,0,0];
 var aP = [0.5,0.52,0.55,0.57,0.60,0.63,0.66,0.77];
 var accExp = [0.62,0.65,0.68,0.71,0.75,0.79,0.83,0.87];
-var itaxPay = [0,0,0,0,0,0,0,0];
+var iTaxPay = [0,0,0,0,0,0,0,0];
 var allowProd = [0,0,0,0,0,0,0,0];
 var divPay = [0,0,0,0,0,0,0,0];
 var otherCurrLiab = [2.64,2.77,2.91,3.05,3.20,3.36,3.53,3.71];
@@ -144,6 +144,22 @@ function findPriceTargets(a,b,c,d) {
 	var ebt = [];
 	var netIncome = [];
 	var ebitda = [];
+	var cashFromOperatingActivities = [];
+
+	//new block to find yearly changes for given variables
+	var acctsRecDelta = findYearlyChanges(acctsRec);
+	var iTaxPayDelta = findYearlyChanges(iTaxPay);
+	var invDelta = findYearlyChanges(inv);
+
+	//no data from 155-161
+	var prepaidRevDelta = findYearlyChanges(prepaidRev);
+	var otherCurrentAssetsDelta = findYearlyChanges(otherCurrentAssets);
+	var accountsPayableDelta = findYearlyChanges(accountsPayable);
+	var otherCurrentLiabilitiesDelta = findYearlyChanges(otherCurrentLiabilities);
+	var accruedExpensesDelta = findYearlyChanges(accruedExpenses);
+	var accruedRevenueShareDelta = findYearlyChanges(accruedRevenueShare);
+	var defRevShareDelta = findYearlyChanges(defRevShare);
+	//////////////////////////////////////////////////////////////////////////////////////////
 
 	for (var i = 0; i < years; i++) {
 		ebit[i] = grossProfit[i] - (rND[i]*(1+b)) - sNM[i] - otherExp[i];
@@ -151,6 +167,7 @@ function findPriceTargets(a,b,c,d) {
 		ebt[i] = ebit[i] - interestFX[i];
 		netIncome[i] = ebt[i] - taxes[i];
 		ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
+		cashFromOperatingActivities[i] = ebit[i] + intExp[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidRevDelta[i] + otherCurrentAssetsDelta[i] + accountsPayableD[i] + otherCurrentLiabilitiesDelta[i] + accruedExpensesDelta[i] + accruedRevenueShareDelta[i] + defRevShareDelta[i];
 	}
 
 
@@ -168,14 +185,14 @@ function findPriceTargets(a,b,c,d) {
 	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
 	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
 
-	// var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidRev, otherCurrentAssets, accountsPayable, otherCurrentLiabilities, accruedExpenses, accruedRevenueShare, defRevShare);
+	//var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidRev, otherCurrentAssets, accountsPayable, otherCurrentLiabilities, accruedExpenses, accruedRevenueShare, defRevShare);
 	// rnd lies in ebit and therefore ebt, so should also lie in operatingCashFlow, and freeCashFlow and P.T.
 	// assets will not be connected to price target. only several current assets lie within findDifferences, which lies in cashFromOperatingActivities. so totalAssets do not affect the price target directly. we can take out total asset growth as a user input if you want.
 	//revenue should flow into ebt, then opCF's, then FCF, and the P.T. Not sure why it isn't working
 	// var cashEq[] = cash ( from prior year) + netChangeCash
 
 
-	var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
+	//var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
 
 	var capEx = []
 	capEx = fillArray(capEx, 1*(1+d), years)
@@ -226,6 +243,14 @@ function sumColumnsOfArrays(array) {
 		}
 		return total;
 	}
+
+function findYearlyChanges(array) {
+	var changes = [];
+	for (var i=1; i<array.length; i++) {
+		changes[i] = array[i-1] - array[i];
+	}
+	return changes;
+}
 
 function fillArray(array, value, positions) {
 	//blank array
