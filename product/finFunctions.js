@@ -168,12 +168,20 @@ function findPriceTargets(a,b,c,d) {
 	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
 	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
 
+	// var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidRev, otherCurrentAssets, accountsPayable, otherCurrentLiabilities, accruedExpenses, accruedRevenueShare, defRevShare);
+	// rnd lies in ebit and therefore ebt, so should also lie in operatingCashFlow, and freeCashFlow and P.T.
+	// assets will not be connected to price target. only several current assets lie within findDifferences, which lies in cashFromOperatingActivities. so totalAssets do not affect the price target directly. we can take out total asset growth as a user input if you want.
+	//revenue should flow into ebt, then opCF's, then FCF, and the P.T. Not sure why it isn't working
+	// var cashEq[] = cash ( from prior year) + netChangeCash
+
+
 	var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
 
 	var capEx = []
 	capEx = fillArray(capEx, 1*(1+d), years)
 	
 	var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
+	//freeCashFlow should be cashFromOperatingActivities - capEx for each year. ( I can't tell if it's that)
 
 	var wacc = .115;
 	var terminalGrowthRate = .003;
