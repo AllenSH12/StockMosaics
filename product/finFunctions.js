@@ -152,13 +152,11 @@ function findPriceTargets(a,b,c,d) {
 	var invDelta = findYearlyChanges(inv);
 
 	//no data from 155-161
-	var prepaidRevDelta = findYearlyChanges(prepaidRev);
-	var otherCurrentAssetsDelta = findYearlyChanges(otherCurrentAssets);
-	var accountsPayableDelta = findYearlyChanges(accountsPayable);
-	var otherCurrentLiabilitiesDelta = findYearlyChanges(otherCurrentLiabilities);
-	var accruedExpensesDelta = findYearlyChanges(accruedExpenses);
-	var accruedRevenueShareDelta = findYearlyChanges(accruedRevenueShare);
-	var defRevShareDelta = findYearlyChanges(defRevShare);
+	var prepaidExpDelta = findYearlyChanges(prepaidExp);
+	var otherCurrAssetsDelta = findYearlyChanges(otherCurrAssets);
+	var aPDelta = findYearlyChanges(aP);
+	var otherCurrentLiabDelta = findYearlyChanges(otherCurrentLiab);
+	var accExpDelta = findYearlyChanges(accExp);
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	for (var i = 0; i < years; i++) {
@@ -167,7 +165,7 @@ function findPriceTargets(a,b,c,d) {
 		ebt[i] = ebit[i] - interestFX[i];
 		netIncome[i] = ebt[i] - taxes[i];
 		ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
-		cashFromOperatingActivities[i] = ebit[i] + intExp[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidRevDelta[i] + otherCurrentAssetsDelta[i] + accountsPayableD[i] + otherCurrentLiabilitiesDelta[i] + accruedExpensesDelta[i] + accruedRevenueShareDelta[i] + defRevShareDelta[i];
+		cashFromOperatingActivities[i] = ebit[i] + intExp[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidExpDelta[i] + otherCurrAssetsDelta[i] + aPDelta[i] + otherCurrentLiabDelta[i] + accExpDelta[i];
 	}
 
 
@@ -185,7 +183,8 @@ function findPriceTargets(a,b,c,d) {
 	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
 	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
 
-	//var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidRev, otherCurrentAssets, accountsPayable, otherCurrentLiabilities, accruedExpenses, accruedRevenueShare, defRevShare);
+	//var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidExp
+		, otherCurrAssets, aP, otherCurrLiab, accExp);
 	// rnd lies in ebit and therefore ebt, so should also lie in operatingCashFlow, and freeCashFlow and P.T.
 	// assets will not be connected to price target. only several current assets lie within findDifferences, which lies in cashFromOperatingActivities. so totalAssets do not affect the price target directly. we can take out total asset growth as a user input if you want.
 	//revenue should flow into ebt, then opCF's, then FCF, and the P.T. Not sure why it isn't working
