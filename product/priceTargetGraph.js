@@ -1,4 +1,4 @@
-function getPriceTargetGraph() {
+function getPriceTargetGraph(a) {
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
 		width = 1140 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
@@ -30,8 +30,11 @@ function getPriceTargetGraph() {
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	d3.tsv("data/yelpSharePrices.tsv", function(error, data) {
-		console.log(data.length);
+	d3.csv("data/yelpSharePrices.csv", function(error, data) {
+		console.log(data[0].close);
+		data[0].close = +data[0].close + a;
+		console.log("a: " + a)
+		console.log(data[0].close);
 		data.forEach(function(d) {
 			d.date = parseDate(d.date);
 			d.close = +d.close;

@@ -1,43 +1,3 @@
-var cashFlows = [[ 56,73,98,109,89,67,42,13],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ -2.6,-4,-5,-5,-5,-5,-3,-2],
-					[ 1, 1, 1, 1, 1, 1, 1, 1],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ -0.0705840000000002, -0.0719956800000001, -0.0734355936000002, -0.0749043054720002, -0.07640239158144, -0.0779304394130689, -0.0794890482013302,-.079],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ -0.00204, -0.00208080000000001, -0.002122416, -0.00216486432, -0.0022081616064, -0.002252324838528, -0.00229737133529856, -.00229],
-					[ -0.00244800000000001, -0.00249696000000001, -0.00254689920000001, -0.002597837184, -0.00264979392768, -0.00270278980623359, -0.00275684560235828, -.0027],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ -0.1255, -0.131775, -0.13836375, -0.1452819375, -0.152546034375, -0.16017333609375, -0.168182002898438, -0.168],
-					[ 0, 0, 0, 0, 0, 0, 0, 0],
-					[ 0, 0, 0, 0, 0, 0, 0, 0]];
-
 var localAds = [171.1,240.9,321.3,389, 401,412,425,438];
 var brandAds = [24.2,28.2,34.1,38.9, 40.47,40,41.28,42.1];
 var otherServices = [9.1,11.7,12,14, 14.56,14.85,15,15];
@@ -160,7 +120,7 @@ function findPriceTargets(a,b,c,d) {
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	for (var i = 0; i < years; i++) {
-		ebit[i] = grossProfit[i] - (rND[i]*(1+b)) - sNM[i] - otherExp[i];
+		ebit[i] = grossProfit[i] - (rND[i]*(1+d)) - sNM[i] - otherExp[i];
 		interestFX[i] = ebit[i] * (-1*interestRate[i]);
 		ebt[i] = ebit[i] - interestFX[i];
 		netIncome[i] = ebt[i] - taxes[i];
@@ -173,7 +133,7 @@ function findPriceTargets(a,b,c,d) {
 	var longTermAssets = sumColumnsOfArrays([tangibleAssets,bldsStructures,machineryEq,furnitureEq,land,accDep,intangAssets,software,goodwill,otherNetInt,invAndOtherAssets,invSec,otherRec,longTimeDeposit,otherLTAssets,allowance]);
 	var totAssets = sumColumnsOfArrays ([currentAssets,longTermAssets]);
 	for (var i=0; i<totAssets.length; i++) {
-		totAssets[i] = totAssets[i] * (1 + c)
+		totAssets[i] = totAssets[i] * (1 + b);
 	}
 	var currentLiabilities = sumColumnsOfArrays([stNP,stDebt,stBorrowing,currentInstLTDebt,bondsDue,aP,accExp,iTaxPay,allowProd,divPay,otherCurrLiab]);
 	var nonCurrentLiab = sumColumnsOfArrays([ltDebt,bond,bondWarrant,ltBorrow,defTaxLiab,provRiskCharge,retirementSevBenef,otherNonCurrLiab]);
@@ -183,20 +143,18 @@ function findPriceTargets(a,b,c,d) {
 	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
 	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
 
-	//var cashFromOperatingActivities[] = ebit[] + intExp[] + iTaxPay[] + dNA[] + findDifferences(acctsRec, iTaxPay, inv, prepaidExp, otherCurrAssets, aP, otherCurrLiab, accExp);
-	// rnd lies in ebit and therefore ebt, so should also lie in operatingCashFlow, and freeCashFlow and P.T.
 	// assets will not be connected to price target. only several current assets lie within findDifferences, which lies in cashFromOperatingActivities. so totalAssets do not affect the price target directly. we can take out total asset growth as a user input if you want.
 	//revenue should flow into ebt, then opCF's, then FCF, and the P.T. Not sure why it isn't working
 	// var cashEq[] = cash ( from prior year) + netChangeCash
 
-
-	//var cashFromOperatingActivities = sumColumnsOfArrays(cashFlows);
-
 	var capEx = []
-	capEx = fillArray(capEx, 1*(1+d), years)
+	capEx = fillArray(capEx, 1, years)
+	for (var i=0; i<capEx.length; i++) {
+		capEx[i] = capEx[i] * (1+c);
+	}
+	console.log(capEx)
 	
 	var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
-	//freeCashFlow should be cashFromOperatingActivities - capEx for each year. ( I can't tell if it's that)
 
 	var wacc = .115;
 	var terminalGrowthRate = .003;

@@ -22,7 +22,6 @@
 
 		<!--model-->
 		<script src="finFunctions.js"></script>
-		<script src="addToData.js"></script>
 
 		<style type="text/css">
 			body {
@@ -109,12 +108,17 @@
 					</svg>
 				</div>
 			</div>
+			
 			<script type="text/javascript">
 				$("form").submit(function() {
+
+
 					var revenue = parseFloat(document.getElementById("revenue").value);
 					var asset = parseFloat(document.getElementById("asset").value);
 					var capEx = parseFloat(document.getElementById("capEx").value);
 					var rND = parseFloat(document.getElementById("rND").value);
+					console.log(capEx)
+					//getPriceTargetGraph(rND);
 					
 					var sum = findPriceTargets(revenue, asset, capEx, rND);
 					for (var i=0; i<sum.length; i++) {
@@ -125,13 +129,21 @@
 				});
 			</script>
 			<script type="text/javascript">
-				addToData();
-				getPriceTargetGraph();
+				var elem = document.getElementById("revenue");
+				elem.value = 0;
+				var elemTwo = document.getElementById("asset");
+				elemTwo.value = 0;
+				var elemThree = document.getElementById("capEx");
+				elemThree.value = 0;
+				var elemFour = document.getElementById("rND");
+				elemFour.value = 0;
+				getPriceTargetGraph(0);
 				addSparkLine("sparkOne","data/sparkOne.tsv")
 				addSparkLine("sparkTwo","data/sparkTwo.tsv")
 				addSparkLine("sparkThree","data/sparkThree.tsv")
 				addSparkLine("sparkFour","data/sparkFour.tsv")
 			</script>
+			
 		</div>
 	</body>
 
