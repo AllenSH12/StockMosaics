@@ -18,9 +18,11 @@
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<!--Spark Lines-->
 		<script src="sparkLines.js"></script>
+		<script src="priceTargetGraph.js"></script>
 
 		<!--model-->
 		<script src="finFunctions.js"></script>
+		<script src="addToData.js"></script>
 
 		<style type="text/css">
 			body {
@@ -81,10 +83,13 @@
 			</div>
 			<div class="row">
 				<div class="threecol"></div>
-				<div class="sixcol" align="center	">
+				<div class="sixcol" align="center">
 					<input type="submit" />
-					<h2>Price target: $<span>______</span></h2>
+					<h2>Price targets: $<span>______</span></h2>
 				</div>
+			</div>
+			<div class="row">
+				
 			</div>
 			<div class="row">
 				<div class="threecol">
@@ -111,13 +116,17 @@
 					var capEx = parseFloat(document.getElementById("capEx").value);
 					var rND = parseFloat(document.getElementById("rND").value);
 					
-					var sum = sumValues(revenue, asset, capEx, rND);
+					var sum = findPriceTargets(revenue, asset, capEx, rND);
+					for (var i=0; i<sum.length; i++) {
+						sum[i] = Math.round(sum[i])
+					}
 					$("span").text(sum).show();
 					return false;
 				});
 			</script>
-			<script src="priceTargetGraph.js"></script>
 			<script type="text/javascript">
+				addToData();
+				getPriceTargetGraph();
 				addSparkLine("sparkOne","data/sparkOne.tsv")
 				addSparkLine("sparkTwo","data/sparkTwo.tsv")
 				addSparkLine("sparkThree","data/sparkThree.tsv")
