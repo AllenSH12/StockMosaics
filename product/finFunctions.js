@@ -152,7 +152,6 @@ function findPriceTargets(a,b,c,d) {
 	for (var i=0; i<capEx.length; i++) {
 		capEx[i] = capEx[i] * (1+c);
 	}
-	console.log(capEx)
 	
 	var freeCashFlow = findDifferences(cashFromOperatingActivities,capEx);
 

@@ -117,13 +117,14 @@
 					var asset = parseFloat(document.getElementById("asset").value);
 					var capEx = parseFloat(document.getElementById("capEx").value);
 					var rND = parseFloat(document.getElementById("rND").value);
-					console.log(capEx)
-					//getPriceTargetGraph(rND);
 					
 					var sum = findPriceTargets(revenue, asset, capEx, rND);
 					for (var i=0; i<sum.length; i++) {
 						sum[i] = Math.round(sum[i])
 					}
+
+					updatePriceTargetGraph(sum);
+					//getPriceTargetGraph(sum);
 					$("span").text(sum).show();
 					return false;
 				});
