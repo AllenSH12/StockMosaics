@@ -55,8 +55,7 @@ function getPriceTargetGraph(a) {
 			.call(xAxis);
 
 
-		x.domain(d3.extent(data, function(d) { return d.date; }));
-		y.domain([0, d3.max(data, function(d) { return d.close; })]);
+q
 
 		svg.append("path")
 			.datum(data)
