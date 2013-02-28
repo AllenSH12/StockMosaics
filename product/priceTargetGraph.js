@@ -35,16 +35,11 @@ function getPriceTargetGraph(a) {
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	d3.csv("data/yelpSharePrices.csv", function(error, data) {
-<<<<<<< HEAD
 		data[0].close = +data[0].close + 7;
-=======
-		data[0].close = +data[0].close + a;
->>>>>>> getting closer to updating graph.
 		data.forEach(function(d) {
 			d.date = parseDate(d.date);
 			d.close = +d.close;
 		});
-<<<<<<< HEAD
 
 		x.domain(d3.extent(data, function(d) { return d.date; }));
 		y.domain([0, d3.max(data, function(d) { return d.close; })]);
@@ -59,7 +54,6 @@ function getPriceTargetGraph(a) {
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis);
 
-=======
 
 		x.domain(d3.extent(data, function(d) { return d.date; }));
 		y.domain([0, d3.max(data, function(d) { return d.close; })]);
@@ -74,7 +68,6 @@ function getPriceTargetGraph(a) {
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis);
 
->>>>>>> getting closer to updating graph.
 		svg.append("g")
 			.attr("class", "y axis")
 			.call(yAxis)
@@ -95,39 +88,6 @@ function getPriceTargetGraph(a) {
 	});
 }
 
-function updatePriceTargetGraph(newTargets) {
-	var total = 0;
-	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-		width = 1140 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
-	var parseDate = d3.time.format("%d-%b-%y").parse;
-
-	var x = d3.time.scale()
-		.range([0, width]);
-
-	var y = d3.scale.linear()
-		.range([height, 0]);
-
-	var area = d3.svg.area()
-		.x(function(d) { return x(d.date); })
-		.y0(height)
-		.y1(function(d) { return y(d.close); });
-
-	var svg = d3.select(document.getElementById("graph"))
-	d3.csv("data/yelpSharePrices.csv", function(error, data) {
-		data.forEach(function(d) {
-			d.close = +d.close;
-			if (d.date == "22-Apr-13") {
-				console.log(d.close)
-				d.close = 100;
-				console.log(d.close);
-			}
-			d.date = parseDate(d.date);
-			
-		});
-		svg.selectAll("g")
-			.data([data])
-			.attr("class", "area")
-			.attr("d", area)
-	});
+function updatePriceTargets(newTargets) {
+	
 }
