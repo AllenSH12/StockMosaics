@@ -91,6 +91,8 @@ var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534];
 
 var sharesOut = [34.2,34.61,35.03,35.45,35.87,36.30,36.74,37.18];
 
+var earningsPerShare = [];
+
 function findPriceTargets(a,b,c,d) {
 	var years = 8;
 	
@@ -124,6 +126,7 @@ function findPriceTargets(a,b,c,d) {
 		interestFX[i] = ebit[i] * (-1*interestRate[i]);
 		ebt[i] = ebit[i] - interestFX[i];
 		netIncome[i] = ebt[i] - taxes[i];
+		earningsPerShare[i] = netIncome[i] / sharesOut[i];
 		ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
 		cashFromOperatingActivities[i] = ebit[i] + intExp[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidExpDelta[i] + otherCurrAssetsDelta[i] + aPDelta[i] + otherCurrLiabDelta[i] + accExpDelta[i];
 	}
@@ -180,7 +183,32 @@ function findPriceTargets(a,b,c,d) {
 	return priceTarget;
 }
 
+function getPERatio() {
+	var pEPrices = [];
+	var pERatios = [1,2,3,4,5];
+	for (var i=0; i<pERatios.length; i++) {
+		pEPrices[i] = pERatios[i] * earningsPerShare[i];
+	}
+	return pEPrices;
+}
+
 //////////////////////////// NON FINANCIAL HELPER FUNCTIONS ///////////////////////					
+function divideArrays(a, b) {
+	var quotient = 0;
+	for (var i =0; i<a.length; i++) {
+		quotient[i] = a[i] / b[i];
+	}
+	return quotient;
+}
+
+function multiplyArrays(a,b) {
+	var product = []
+	for (var i=0; i<a.length; i++) {
+		product[i] = a[i] * b[i];
+	}
+	return product;
+}
+
 function sumValues(a,b,c,d) {
 	var total = a + b + c + d;
 	return total;
