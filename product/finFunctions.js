@@ -93,6 +93,9 @@ var sharesOut = [34.2,34.61,35.03,35.45,35.87,36.30,36.74,37.18];
 
 var earningsPerShare = [];
 
+var bookValue = [];
+//define bookValue
+
 function findPriceTargets(a,b,c,d) {
 	var years = 8;
 	
@@ -182,7 +185,8 @@ function findPriceTargets(a,b,c,d) {
 	}
 	return priceTarget;
 }
-
+//alternate price charts derived from ratios
+//PE ratio is set beforehand
 function getPERatio() {
 	var pEPrices = [];
 	var pERatios = [1,2,3,4,5];
@@ -191,6 +195,78 @@ function getPERatio() {
 	}
 	return pEPrices;
 }
+
+//PB ratio is set beforehand
+function getPBRatio() {
+	var pBPrices = [];
+	var pBRatios = [1,1,1,1,1];
+	for (var i=0; i<pBRatios.length; i++) {
+		pBPrices[i] = pBRatios[i] * bookValue[i];
+	}
+	return pBPrices;
+}
+//PS ratio is set beforehand
+function getPSRatio() {
+	var pSPrices = [];
+	var pSRatios = [1,1,1,1,1];
+	for (var i=0; i<pSRatios.length; i++) {
+		pSPrices[i] = pSRatios[i] * revenues[i];
+	}
+	return pSPrices;
+}
+//PFCF ratio is set beforehand
+function getPCFRatio() {
+	var pFCFPrices = [];
+	var pFCFRatios = [1,1,1,1,1];
+	for (var i=0; i<pFCFRatios.length; i++) {
+		pFCFPrices[i] = pFCFRatios[i] * freeCashFlow[i];
+	}
+	return pFCFPrices;
+}
+
+//PE ratio is derived from regular price outputs
+
+function getPERatio1() {
+	var priceTarget = [];
+	var pERatios1 = [];
+	for (var i=0;i<pERatios1.length;i++) {
+		pERatios1[i] = priceTarget[i]/earningsPerShare[i];
+	}
+	return pERatios1;
+}
+//PB ratio is derived from regular price outputs
+function getPBRatio1() {
+	var priceTarget = [];
+	var pBRatios1 = [];
+	for (var i=0;i<pBRatios1.length;i++) {
+		pBRatios1[i] = priceTarget[i]/bookValue[i];
+	}
+	return pBRatios1;
+}
+//PS ratio is derived from regular price outputs
+function getPSRatio1() {
+	var priceTarget = [];
+	var pSRatios1 = [];
+	for (var i=0;i<pSRatios1.length;i++) {
+		pSRatios1[i] = priceTarget[i]/revenues[i];
+	}
+	return pSRatios1;
+}
+//PFCF ratio is derived from regular price outputs
+function getPFCFRatio1() {
+	var priceTarget = [];
+	var pFCFRatios1 = [];
+	for (var i=0;i<pFCFRatios1.length;i++) {
+		pFCFRatios1[i] = priceTarget[i]/freeCashFlow[i];
+	}
+	return pFCFRatios1;
+}
+
+
+
+
+
+
 
 //////////////////////////// NON FINANCIAL HELPER FUNCTIONS ///////////////////////					
 function divideArrays(a, b) {
