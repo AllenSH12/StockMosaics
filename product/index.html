@@ -59,7 +59,7 @@
 			<div class="row">
 				<div class="twelvecol">
 					<h1 align="center">YELP</h1>
-					<svg id="graph" width="1140" height="500" viewbox="0 0 1140 500" preserveAspectRatio="xMidYMid">
+					<svg id="chart" width="1140" height="500" viewbox="0 0 1140 500" preserveAspectRatio="xMidYMid">
 					</svg>
 				</div>
 			</div>
@@ -67,27 +67,18 @@
 				<h1>Future Growth Rates:</h1>
 			</div>
 			<div class="row" id="input">
-				<div class="twocol"></div>
-				<div class="twocol">
 					<form>
-					<p>Revenue</p><input class="fields" id="revenue" type="float"/>
-				</div>
-				<div class="twocol">
+					<p>Revenue</p><input class="fields" id="revenue" type="float"/><br>
+					<svg id="sparkOne" width="265" height="200" viewbox="0 0 265 200" preserveAspectRatio="xMidYMid">
+					</svg>
 					<p>Asset</p><input class="fields" id="asset" type="float" />
-				</div>
-				<div class="twocol">
 					<p>CapEx</p><input class="fields" id="capEx" type="float" />
-				</div>
-				<div class="twocol">
-					<p>R&D</p><input class="fields" id="rND" type="float" /><br>
-					
-				</div>
+					<p>R&D</p><input class="fields" id="rnd" type="float" /><br>
 			</div>
 			<div class="row">
 				<div class="threecol"></div>
 				<div class="sixcol" align="center">
 					<input type="submit" />
-					<h2>Price targets: $<span>______</span></h2>
 				</div>
 			</div>
 			<div class="row">
@@ -111,37 +102,39 @@
 					</svg>
 				</div>
 			</div>
-			
+			<script src="getLineGraph.js"></script>
 			<script type="text/javascript">
 				$("form").submit(function() {
 					var revenue = parseFloat(document.getElementById("revenue").value);
 					var asset = parseFloat(document.getElementById("asset").value);
-					var capEx = parseFloat(document.getElementById("capEx").value);
-					var rND = parseFloat(document.getElementById("rND").value);
+					var capex = parseFloat(document.getElementById("capex").value);
+					var rnd = parseFloat(document.getElementById("rnd").value);
 					
-					var sum = findPriceTargets(revenue, asset, capEx, rND);
-					for (var i=0; i<sum.length; i++) {
-						sum[i] = Math.round(sum[i])
-					}
-					var update = 0;
+					d3.csv("data/yelpSharePrices.csv", function(error, data) {
+						data.forEach(function(d) {
+							d.date = parseDate(d.date);
+							d.close = +d.close;
+						})
 
-					//updatePriceTargetGraph(update);
-					//getPriceTargetGraph(sum);
-					$("span").text(sum).show();
+					  	var priceTargets = findPriceTargets(revenue, asset, capex, rnd);
+
+					  	for (var i=0; i < priceTargets.length; i++) {
+					  		priceTargets[i] = Math.round(priceTargets[i]);
+					  		data[i].close = priceTargets[i];
+					  	}
+
+						x.domain(d3.extent(data, function(d) { return d.date; }));
+					  	y.domain(d3.extent(data, function(d) { return d.close; }));
+
+						svg.selectAll("path")
+							.data([data])
+							.transition().duration(2000).delay(200)
+							.attr("d", line);
+					});
 					return false;
 				});
 			</script>
 			<script type="text/javascript">
-				var elem = document.getElementById("revenue");
-				elem.value = 0;
-				var elemTwo = document.getElementById("asset");
-				elemTwo.value = 0;
-				var elemThree = document.getElementById("capEx");
-				elemThree.value = 0;
-				var elemFour = document.getElementById("rND");
-				elemFour.value = 0;
-				displayGraphExample("#graph", 1150, 500, "basis", true, 1000, 1000);
-				//getPriceTargetGraph(0);
 				addSparkLine("sparkOne","data/sparkOne.tsv")
 				addSparkLine("sparkTwo","data/sparkTwo.tsv")
 				addSparkLine("sparkThree","data/sparkThree.tsv")

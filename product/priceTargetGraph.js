@@ -49,14 +49,6 @@ function getPriceTargetGraph(a) {
 			.attr("class", "area")
 			.attr("d", area);
 
-		svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(0," + height + ")")
-			.call(xAxis);
-
-
-q
-
 		svg.append("path")
 			.datum(data)
 			.attr("class", "area")

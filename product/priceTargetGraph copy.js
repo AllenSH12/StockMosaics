@@ -38,7 +38,7 @@ function getPriceTargetGraph(a) {
 		data.forEach(function(d) {
 			d.date = parseDate(d.date);
 			d.close = +d.close;
-	});
+		});
 
 	x.domain(d3.extent(data, function(d) { return d.date; }));
 	y.domain([0, d3.max(data, function(d) { return d.close; })]);
